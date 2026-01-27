@@ -1,0 +1,62 @@
+base: 'https://v13test.ddev.site/'
+languages:
+  -
+    title: English
+    enabled: true
+    locale: en-Us
+    hreflang: ''
+    base: /
+    websiteTitle: ''
+    navigationTitle: ''
+    flag: global
+    languageId: 0
+  -
+    title: gujrati
+    enabled: true
+    locale: guj
+    hreflang: guj-GUj
+    base: /guj/
+    websiteTitle: ''
+    navigationTitle: ''
+    fallbackType: strict
+    fallbacks: ''
+    flag: in
+    languageId: 1
+  -
+    title: german
+    enabled: true
+    locale: de-DE
+    hreflang: de-DE
+    base: /de/
+    websiteTitle: ''
+    navigationTitle: ''
+    fallbackType: strict
+    fallbacks: ''
+    flag: de
+    languageId: 2
+  -
+    title: spenish
+    enabled: true
+    locale: es-ES
+    hreflang: es-ES
+    base: /es/
+    websiteTitle: ''
+    navigationTitle: Spenish
+    fallbackType: strict
+    fallbacks: ''
+    flag: es
+    languageId: 3
+  -
+    title: Urdu
+    enabled: true
+    locale: ur-UR
+    hreflang: ur-UR
+    base: /ur/
+    websiteTitle: ''
+    navigationTitle: ''
+    fallbackType: strict
+    fallbacks: ''
+    flag: pk
+    languageId: 4
+rootPageId: 1
+websiteTitle: ''

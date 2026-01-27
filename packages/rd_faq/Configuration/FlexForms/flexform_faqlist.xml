@@ -1,0 +1,226 @@
+<T3DataStructure>
+    <sheets>
+    <!--
+			################################
+			  SHEET General Settings
+			################################
+		-->
+        <sDEF>
+            <ROOT>
+                <sheetTitle>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.tab.settings</sheetTitle>
+                <type>array</type>
+                <el>
+                    <!-- Order field -->
+                    <settings.orderField>
+                            <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.orderField</label>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectSingle</renderType>
+                                <items>
+                                    <numIndex index="0" type="array">
+                                        <label />
+                                        <value />
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.orderField.title</label>
+                                        <value>title</value>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.orderField.sorting</label>
+                                        <value>sorting</value>
+                                    </numIndex>
+                                </items>
+                            </config>
+                    </settings.orderField>
+                     <!-- Order direction -->
+                    <settings.orderDirection>
+                        <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.orderDirection</label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items>
+                                <numIndex index="0" type="array">
+                                    <label />
+                                    <value />
+                                </numIndex>
+                                <numIndex index="1">
+                                    <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.orderDirection.ascending</label>
+                                    <value>asc</value>
+                                </numIndex>
+                                <numIndex index="2">
+                                    <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.orderDirection.descending</label>
+                                    <value>desc</value>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.orderDirection>
+
+                    <!-- Query Limit -->
+                    <settings.queryLimit>
+                        <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.queryLimit</label>
+                        <config>
+                            <type>input</type>
+                            <size>5</size>
+                            <eval>int</eval>
+                        </config>
+                    </settings.queryLimit>
+
+                    <!-- Category Mode conjunction -->
+                    <settings.categoryModeConjunction>
+                        <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.categoryModeConjunction</label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items>
+                                <numIndex index="0" type="array">
+                                    <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.categoryModeConjunction.ignore</label>
+                                    <value></value>
+                                </numIndex>
+                                <numIndex index="1" type="array">
+                                    <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.categoryModeConjunction.or</label>
+                                    <value>OR</value>
+                                </numIndex>
+                                <numIndex index="2" type="array">
+                                    <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.categoryModeConjunction.and</label>
+                                    <value>AND</value>
+                                </numIndex>
+                                <numIndex index="3" type="array">
+                                    <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.categoryModeConjunction.notor</label>
+                                    <value>NOTOR</value>
+                                </numIndex>
+                                <numIndex index="4" type="array">
+                                    <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.categoryModeConjunction.notand</label>
+                                    <value>NOTAND</value>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.categoryModeConjunction>
+                    <settings.categories>
+                        <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.categories</label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectTree</renderType>
+                            <foreign_table>tx_rdfaq_domain_model_category</foreign_table>
+                            <foreign_table_where>AND tx_rdfaq_domain_model_category.sys_language_uid IN (-1,0) ORDER BY tx_rdfaq_domain_model_category.title ASC</foreign_table_where>
+                            <treeConfig>
+                                <parentField>parentcategory</parentField>
+                                <appearance>
+                                    <expandAll>true</expandAll>
+                                    <showHeader>true</showHeader>
+                                </appearance>
+                            </treeConfig>
+                            <size>10</size>
+                            <autoSizeMax>20</autoSizeMax>
+                            <minitems>0</minitems>
+                            <maxitems>999</maxitems>
+                        </config>
+                    </settings.categories>
+
+                    <settings.includeSubcategories>
+                        <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.includeSubcategories</label>
+                        <config>
+                            <type>check</type>
+                        </config>
+                    </settings.includeSubcategories>
+                    <settings.storagePage>
+                        <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.storagePage</label>
+                        <config>
+                            <type>group</type>
+                            <allowed>pages</allowed>
+                            <size>3</size>
+                            <maxitems>50</maxitems>
+                            <minitems>0</minitems>
+                            <show_thumbs>1</show_thumbs>
+                            <wizards>
+                                <suggest>
+                                    <type>suggest</type>
+                                </suggest>
+                            </wizards>
+                        </config>
+                    </settings.storagePage>
+
+                </el>
+            </ROOT>
+        </sDEF>
+           <!-- Sheet: Additional -->
+        <additional>
+            <ROOT>
+                <sheetTitle>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.tab.additional</sheetTitle>
+                <type>array</type>
+                <el>
+                    <!-- disable overwriteDemand -->
+                    <settings.disableOverwriteDemand>
+                        <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.disableOverwriteDemand</label>
+                        <config>
+                            <type>check</type>
+                            <default>1</default>
+                        </config>
+                    </settings.disableOverwriteDemand>
+                </el>
+            </ROOT>
+        </additional>
+        <pagination>
+            <ROOT>
+                <sheetTitle>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.tab.pagination</sheetTitle>
+                <type>array</type>
+                <el>
+
+                    <!-- Enable pagination -->
+                    <settings.enablePagination>
+                        <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.enablePagination</label>
+                        <config>
+                            <type>check</type>
+                            <default>0</default>
+                        </config>
+                    </settings.enablePagination>
+
+                    <!-- Items per page -->
+                    <settings.displayItemsPerPage>
+                        <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.displayItemsPerPage</label>
+                        <config>
+                            <type>number</type>
+                            <size>5</size>
+                            <default>10</default>
+                        </config>
+                    </settings.displayItemsPerPage>
+
+                    <!-- Maximum number of pages -->
+                    <settings.maxPagesNum>
+                        <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.maxPagesNum</label>
+                        <config>
+                            <type>number</type>
+                            <size>5</size>
+                            <default>10</default>
+                        </config>
+                    </settings.maxPagesNum>
+
+                </el>
+            </ROOT>
+        </pagination>
+
+        <!-- Sheet: Template -->
+        <template>
+            <ROOT>
+                <sheetTitle>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.tab.template</sheetTitle>
+                <type>array</type>
+                <el>
+                    <!-- Template Layout -->
+                    <settings.templateLayout>
+                        <label>LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:flexforms.plugin.field.templateLayout</label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <itemsProcFunc>RemoteDevs\RdFaq\Hooks\ItemsProcFunc->userTemplateLayout</itemsProcFunc>
+                            <items>
+                                <numIndex index="0" type="array">
+                                    <label />
+                                    <value />
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.templateLayout>
+                </el>
+            </ROOT>
+        </template>
+    </sheets>
+</T3DataStructure>

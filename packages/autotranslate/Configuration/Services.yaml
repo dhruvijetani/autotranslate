@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  TYPO3\CMS\Core\Pagination\ArrayPaginator:
+    arguments:
+      $items: []
+
+  RD\Autotranslate\:
+    resource: '../Classes/*'
+    exclude: '../Classes/Domain/Model/*'

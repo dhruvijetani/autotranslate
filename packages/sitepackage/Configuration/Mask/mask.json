@@ -1,0 +1,478 @@
+{
+    "version": "8.1.0",
+    "restructuringDone": false,
+    "tables": {
+        "tt_content": {
+            "elements": {
+                "repeatofrepeat": {
+                    "color": "#000000",
+                    "colorOverlay": "#000000",
+                    "columns": [
+                        "tx_mask_text",
+                        "tx_mask_firstre"
+                    ],
+                    "description": "",
+                    "descriptions": [
+                        "",
+                        ""
+                    ],
+                    "icon": "",
+                    "iconOverlay": "",
+                    "key": "repeatofrepeat",
+                    "label": "repeatofrepeat",
+                    "labels": [
+                        "text",
+                        "firstre"
+                    ],
+                    "shortLabel": "",
+                    "sorting": 0
+                },
+                "repeatslider": {
+                    "color": "#000000",
+                    "colorOverlay": "#000000",
+                    "columns": [
+                        "tx_mask_heading",
+                        "tx_mask_repeatesliders"
+                    ],
+                    "description": "",
+                    "descriptions": [
+                        "",
+                        ""
+                    ],
+                    "icon": "",
+                    "iconOverlay": "",
+                    "key": "repeatslider",
+                    "label": "repeatslider",
+                    "labels": [
+                        "heading",
+                        "slider"
+                    ],
+                    "shortLabel": "",
+                    "sorting": 0
+                }
+            },
+            "sql": {
+                "tx_mask_firstre": {
+                    "tt_content": {
+                        "tx_mask_firstre": "int(11) unsigned DEFAULT '0' NOT NULL"
+                    }
+                },
+                "tx_mask_heading": {
+                    "tt_content": {
+                        "tx_mask_heading": "varchar(255) DEFAULT '' NOT NULL"
+                    }
+                },
+                "tx_mask_repeatesliders": {
+                    "tt_content": {
+                        "tx_mask_repeatesliders": "int(11) unsigned DEFAULT '0' NOT NULL"
+                    }
+                },
+                "tx_mask_text": {
+                    "tt_content": {
+                        "tx_mask_text": "mediumtext"
+                    }
+                }
+            },
+            "tca": {
+                "tx_mask_firstre": {
+                    "config": {
+                        "appearance": {
+                            "enabledControls": {
+                                "delete": 1,
+                                "dragdrop": 1,
+                                "hide": 1,
+                                "info": 1,
+                                "localize": 1,
+                                "new": 1,
+                                "sort": 1
+                            },
+                            "levelLinksPosition": "top",
+                            "showAllLocalizationLink": 1,
+                            "showNewRecordLink": 1,
+                            "showPossibleLocalizationRecords": 1,
+                            "useSortable": 1
+                        },
+                        "foreign_field": "parentid",
+                        "foreign_sortby": "sorting",
+                        "foreign_table": "--inlinetable--",
+                        "foreign_table_field": "parenttable",
+                        "type": "inline"
+                    },
+                    "fullKey": "tx_mask_firstre",
+                    "key": "firstre",
+                    "type": "inline"
+                },
+                "tx_mask_heading": {
+                    "config": {
+                        "nullable": 0,
+                        "type": "input"
+                    },
+                    "fullKey": "tx_mask_heading",
+                    "key": "heading",
+                    "type": "string"
+                },
+                "tx_mask_repeatesliders": {
+                    "config": {
+                        "appearance": {
+                            "enabledControls": {
+                                "delete": 1,
+                                "dragdrop": 1,
+                                "hide": 1,
+                                "info": 1,
+                                "localize": 1,
+                                "new": 1,
+                                "sort": 1
+                            },
+                            "levelLinksPosition": "top",
+                            "showAllLocalizationLink": 1,
+                            "showNewRecordLink": 1,
+                            "showPossibleLocalizationRecords": 1,
+                            "useSortable": 1
+                        },
+                        "foreign_field": "parentid",
+                        "foreign_sortby": "sorting",
+                        "foreign_table": "--inlinetable--",
+                        "foreign_table_field": "parenttable",
+                        "type": "inline"
+                    },
+                    "fullKey": "tx_mask_repeatesliders",
+                    "key": "repeatesliders",
+                    "type": "inline"
+                },
+                "tx_mask_text": {
+                    "config": {
+                        "nullable": 0,
+                        "type": "text",
+                        "wrap": "virtual"
+                    },
+                    "fullKey": "tx_mask_text",
+                    "key": "text",
+                    "type": "text"
+                }
+            }
+        },
+        "tx_mask_firstre": {
+            "sql": {
+                "tx_mask_image": {
+                    "tx_mask_firstre": {
+                        "tx_mask_image": "int(11) unsigned DEFAULT '0' NOT NULL"
+                    }
+                },
+                "tx_mask_secondrepeat": {
+                    "tx_mask_firstre": {
+                        "tx_mask_secondrepeat": "int(11) unsigned DEFAULT '0' NOT NULL"
+                    }
+                },
+                "tx_mask_text2": {
+                    "tx_mask_firstre": {
+                        "tx_mask_text2": "varchar(255) DEFAULT '' NOT NULL"
+                    }
+                }
+            },
+            "tca": {
+                "tx_mask_image": {
+                    "config": {
+                        "appearance": {
+                            "elementBrowserEnabled": 1,
+                            "enabledControls": {
+                                "delete": 1,
+                                "dragdrop": 1,
+                                "hide": 1,
+                                "info": 1,
+                                "localize": 1,
+                                "sort": 0
+                            },
+                            "fileUploadAllowed": 1,
+                            "useSortable": 1
+                        },
+                        "minitems": ""
+                    },
+                    "fullKey": "tx_mask_image",
+                    "imageoverlayPalette": 1,
+                    "inlineParent": "tx_mask_firstre",
+                    "key": "image",
+                    "label": "image",
+                    "order": 1,
+                    "type": "file"
+                },
+                "tx_mask_secondrepeat": {
+                    "config": {
+                        "appearance": {
+                            "enabledControls": {
+                                "delete": 1,
+                                "dragdrop": 1,
+                                "hide": 1,
+                                "info": 1,
+                                "localize": 1,
+                                "new": 1,
+                                "sort": 1
+                            },
+                            "levelLinksPosition": "top",
+                            "showAllLocalizationLink": 1,
+                            "showNewRecordLink": 1,
+                            "showPossibleLocalizationRecords": 1,
+                            "useSortable": 1
+                        },
+                        "foreign_field": "parentid",
+                        "foreign_sortby": "sorting",
+                        "foreign_table": "--inlinetable--",
+                        "foreign_table_field": "parenttable",
+                        "type": "inline"
+                    },
+                    "fullKey": "tx_mask_secondrepeat",
+                    "inlineParent": "tx_mask_firstre",
+                    "key": "secondrepeat",
+                    "label": "secondrepeat",
+                    "order": 3,
+                    "type": "inline"
+                },
+                "tx_mask_text2": {
+                    "config": {
+                        "nullable": 0,
+                        "type": "input"
+                    },
+                    "fullKey": "tx_mask_text2",
+                    "inlineParent": "tx_mask_firstre",
+                    "key": "text2",
+                    "label": "text2",
+                    "order": 2,
+                    "type": "string"
+                }
+            }
+        },
+        "tx_mask_repeatesliders": {
+            "sql": {
+                "tx_mask_image": {
+                    "tx_mask_repeatesliders": {
+                        "tx_mask_image": "int(11) unsigned DEFAULT '0' NOT NULL"
+                    }
+                },
+                "tx_mask_media": {
+                    "tx_mask_repeatesliders": {
+                        "tx_mask_media": "int(11) unsigned DEFAULT '0' NOT NULL"
+                    }
+                },
+                "tx_mask_text": {
+                    "tx_mask_repeatesliders": {
+                        "tx_mask_text": "mediumtext"
+                    }
+                }
+            },
+            "tca": {
+                "tx_mask_image": {
+                    "config": {
+                        "appearance": {
+                            "elementBrowserEnabled": 1,
+                            "enabledControls": {
+                                "delete": 1,
+                                "dragdrop": 1,
+                                "hide": 1,
+                                "info": 1,
+                                "localize": 1,
+                                "sort": 0
+                            },
+                            "fileUploadAllowed": 1,
+                            "useSortable": 1
+                        },
+                        "minitems": ""
+                    },
+                    "fullKey": "tx_mask_image",
+                    "imageoverlayPalette": 1,
+                    "inlineParent": "tx_mask_repeatesliders",
+                    "key": "image",
+                    "label": "image",
+                    "order": 1,
+                    "type": "file"
+                },
+                "tx_mask_media": {
+                    "config": {
+                        "appearance": {
+                            "elementBrowserEnabled": 1,
+                            "enabledControls": {
+                                "delete": 1,
+                                "dragdrop": 1,
+                                "hide": 1,
+                                "info": 1,
+                                "localize": 1,
+                                "sort": 0
+                            },
+                            "fileByUrlAllowed": 1,
+                            "fileUploadAllowed": 1,
+                            "useSortable": 1
+                        },
+                        "minitems": ""
+                    },
+                    "fullKey": "tx_mask_media",
+                    "inlineParent": "tx_mask_repeatesliders",
+                    "key": "media",
+                    "label": "media",
+                    "onlineMedia": [
+                        "youtube",
+                        "vimeo"
+                    ],
+                    "order": 2,
+                    "type": "media"
+                },
+                "tx_mask_text": {
+                    "config": {
+                        "nullable": 0,
+                        "type": "text",
+                        "wrap": "virtual"
+                    },
+                    "fullKey": "tx_mask_text",
+                    "inlineParent": "tx_mask_repeatesliders",
+                    "key": "text",
+                    "label": "text",
+                    "order": 3,
+                    "type": "text"
+                }
+            }
+        },
+        "tx_mask_secondrepeat": {
+            "sql": {
+                "tx_mask_text3": {
+                    "tx_mask_secondrepeat": {
+                        "tx_mask_text3": "mediumtext"
+                    }
+                },
+                "tx_mask_thirsrepeat": {
+                    "tx_mask_secondrepeat": {
+                        "tx_mask_thirsrepeat": "int(11) unsigned DEFAULT '0' NOT NULL"
+                    }
+                },
+                "tx_mask_video": {
+                    "tx_mask_secondrepeat": {
+                        "tx_mask_video": "int(11) unsigned DEFAULT '0' NOT NULL"
+                    }
+                }
+            },
+            "tca": {
+                "tx_mask_text3": {
+                    "config": {
+                        "enableRichtext": 1,
+                        "type": "text"
+                    },
+                    "fullKey": "tx_mask_text3",
+                    "inlineParent": "tx_mask_secondrepeat",
+                    "key": "text3",
+                    "label": "text3",
+                    "order": 1,
+                    "type": "richtext"
+                },
+                "tx_mask_thirsrepeat": {
+                    "config": {
+                        "appearance": {
+                            "enabledControls": {
+                                "delete": 1,
+                                "dragdrop": 1,
+                                "hide": 1,
+                                "info": 1,
+                                "localize": 1,
+                                "new": 1,
+                                "sort": 1
+                            },
+                            "levelLinksPosition": "top",
+                            "showAllLocalizationLink": 1,
+                            "showNewRecordLink": 1,
+                            "showPossibleLocalizationRecords": 1,
+                            "useSortable": 1
+                        },
+                        "foreign_field": "parentid",
+                        "foreign_sortby": "sorting",
+                        "foreign_table": "--inlinetable--",
+                        "foreign_table_field": "parenttable",
+                        "type": "inline"
+                    },
+                    "fullKey": "tx_mask_thirsrepeat",
+                    "inlineParent": "tx_mask_secondrepeat",
+                    "key": "thirsrepeat",
+                    "label": "thirdrepeat",
+                    "order": 3,
+                    "type": "inline"
+                },
+                "tx_mask_video": {
+                    "config": {
+                        "appearance": {
+                            "elementBrowserEnabled": 1,
+                            "enabledControls": {
+                                "delete": 1,
+                                "dragdrop": 1,
+                                "hide": 1,
+                                "info": 1,
+                                "localize": 1,
+                                "sort": 0
+                            },
+                            "fileByUrlAllowed": 1,
+                            "fileUploadAllowed": 1,
+                            "useSortable": 1
+                        },
+                        "minitems": ""
+                    },
+                    "fullKey": "tx_mask_video",
+                    "inlineParent": "tx_mask_secondrepeat",
+                    "key": "video",
+                    "label": "video",
+                    "onlineMedia": [
+                        "youtube",
+                        "vimeo"
+                    ],
+                    "order": 2,
+                    "type": "media"
+                }
+            }
+        },
+        "tx_mask_thirsrepeat": {
+            "sql": {
+                "tx_mask_img": {
+                    "tx_mask_thirsrepeat": {
+                        "tx_mask_img": "int(11) unsigned DEFAULT '0' NOT NULL"
+                    }
+                },
+                "tx_mask_int": {
+                    "tx_mask_thirsrepeat": {
+                        "tx_mask_int": "int(11) DEFAULT '0' NOT NULL"
+                    }
+                }
+            },
+            "tca": {
+                "tx_mask_img": {
+                    "config": {
+                        "appearance": {
+                            "elementBrowserEnabled": 1,
+                            "enabledControls": {
+                                "delete": 1,
+                                "dragdrop": 1,
+                                "hide": 1,
+                                "info": 1,
+                                "localize": 1,
+                                "sort": 0
+                            },
+                            "fileUploadAllowed": 1,
+                            "useSortable": 1
+                        },
+                        "minitems": ""
+                    },
+                    "fullKey": "tx_mask_img",
+                    "imageoverlayPalette": 1,
+                    "inlineParent": "tx_mask_thirsrepeat",
+                    "key": "img",
+                    "label": "img",
+                    "order": 2,
+                    "type": "file"
+                },
+                "tx_mask_int": {
+                    "config": {
+                        "nullable": 0,
+                        "type": "number"
+                    },
+                    "fullKey": "tx_mask_int",
+                    "inlineParent": "tx_mask_thirsrepeat",
+                    "key": "int",
+                    "label": "int",
+                    "order": 1,
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

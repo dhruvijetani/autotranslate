@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2025-05-14T08:25:42Z" product-name="rd_faq">
+		<header/>
+		<body>
+			<trans-unit id="extension.name" resname="extension.name">
+				<source>FAQ</source>
+			</trans-unit>
+			<trans-unit id="CType.div.plugingroup" resname="CType.div.plugingroup">
+				<source>FAQ</source>
+			</trans-unit>
+            <trans-unit id="plugin.faqlist.title">
+				<source>FAQ List view</source>
+			</trans-unit>
+			<trans-unit id="plugin.faqlist.description" resname="plugin.faqlist.description">
+				<source>Listing Of All FAQs</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.tab.settings">
+				<source>FAQ plugin Settings</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.orderField">
+				<source>Short By</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.orderField.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.orderField.sorting">
+				<source>TYPO3 Backend Sorting</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.orderDirection">
+				<source>Drection of Sorting</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.orderDirection.ascending">
+				<source>Ascending</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.orderDirection.descending">
+				<source>Descending</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.queryLimit">
+				<source>Display Maximum Record</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.categoryModeConjunction">
+				<source>Category mode</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.categoryModeConjunction.ignore">
+				<source>Show All Category FAQs</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.categoryModeConjunction.or">
+				<source>Show FAQ with Selected Category (OR)</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.categoryModeConjunction.and">
+				<source>Show FAQ with Selected Category (AND)</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.categoryModeConjunction.notor">
+				<source>Don't Show FAQ with Selected Category (NOTOR)</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.categoryModeConjunction.notand">
+				<source>Don't Show FAQ with Selected Category (NOTAND)</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.categories">
+				<source>Selected Category</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.includeSubcategories">
+				<source>Include Subcategories</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.storagePage">
+				<source>Storage Page</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.tab.additional">
+				<source>Additional</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.disableOverwriteDemand">
+				<source>Disable overwrite demand</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.tab.pagination">
+				<source>Pagination</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.enablePagination">
+				<source>Enable Pagination</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.displayItemsPerPage">
+				<source>Display Items PerPage</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.maxPagesNum">
+				<source>Maximum Number of Pages</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.tab.template">
+				<source>Template</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.templateLayout">
+				<source>Select Template Layout</source>
+			</trans-unit>
+			<trans-unit id="flexforms.plugin.field.listpageid">
+				<source>List Page Id</source>
+			</trans-unit>
+        </body>
+    </file>
+</xliff>

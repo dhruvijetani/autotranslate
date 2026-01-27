@@ -1,0 +1,14 @@
+plugin.tx_rdfaq {
+    view {
+        # cat=plugin.tx_rdfaq/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:rd_faq/Resources/Private/Templates/
+        # cat=plugin.tx_rdfaq/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:rd_faq/Resources/Private/Partials/
+        # cat=plugin.tx_rdfaq/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:rd_faq/Resources/Private/Layouts/
+    }
+    persistence {
+        # cat=plugin.tx_rdfaq//a; type=string; label=Default storage PID
+        storagePid =
+    }
+}

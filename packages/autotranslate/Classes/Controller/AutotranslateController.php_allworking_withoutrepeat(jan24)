@@ -1,0 +1,625 @@
+<?php
+
+declare(strict_types=1);
+
+namespace RD\Autotranslate\Controller;
+
+use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Site\SiteFinder;
+use TYPO3\CMS\Backend\Attribute\AsController;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessageService;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity; // 🔥 New way to handle severity
+
+/**
+ * This file is part of the "Auto Translate" Extension for TYPO3 CMS.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * (c) 2026 
+ */
+
+/**
+ * AutotranslateController
+ */
+class AutotranslateController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+{
+
+    /**
+     * autotranslateRepository
+     *
+     * @var \RD\Autotranslate\Domain\Repository\AutotranslateRepository
+     */
+    protected $autotranslateRepository = null;
+
+    /**
+     * @param \RD\Autotranslate\Domain\Repository\AutotranslateRepository $autotranslateRepository
+     */
+    public function injectAutotranslateRepository(\RD\Autotranslate\Domain\Repository\AutotranslateRepository $autotranslateRepository)
+    {
+        $this->autotranslateRepository = $autotranslateRepository;
+    }
+
+
+
+
+
+    // public function indexAction(): \Psr\Http\Message\ResponseInterface
+    // {
+    //     $queryParams = $this->request->getQueryParams();
+    //     $pageUid = (int)($queryParams['id'] ?? 0);
+    //     $doTranslate = (int)($queryParams['doTranslate'] ?? 0);
+
+    //     if ($pageUid > 0) {
+    //         $siteFinder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Site\SiteFinder::class);
+    //         $site = $siteFinder->getSiteByPageId($pageUid);
+    //         $allLanguages = $site->getLanguages();
+
+    //         // 1. Process translation if button clicked
+    //         if ($doTranslate === 1) {
+    //             $this->runTranslateProcess($pageUid);
+    //             // Redirect to clean the URL and show messages
+    //             return $this->redirect('index', null, null, ['id' => $pageUid]);
+    //         }
+
+    //         $connectionPool = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class);
+            
+    //         // 2. Fetch Original English Content
+    //         $contentElements = $connectionPool->getQueryBuilderForTable('tt_content')
+    //             ->select('uid', 'header', 'CType')
+    //             ->from('tt_content')
+    //             ->where('pid=' . $pageUid, 'sys_language_uid=0', 'deleted=0')
+    //             ->executeQuery()->fetchAllAssociative();
+
+    //         // 3. Fetch ALREADY Translated Content (to show below)
+    //         $translatedElements = $connectionPool->getQueryBuilderForTable('tt_content')
+    //             ->select('uid', 'header', 'sys_language_uid', 'CType')
+    //             ->from('tt_content')
+    //             ->where('pid=' . $pageUid, 'sys_language_uid > 0', 'deleted=0')
+    //             ->executeQuery()->fetchAllAssociative();
+
+    //         $this->view->assignMultiple([
+    //             'pageUid' => $pageUid,
+    //             'languages' => $allLanguages,
+    //             'contentElements' => $contentElements,
+    //             'contentCount' => count($contentElements),
+    //             'translatedElements' => $translatedElements
+    //         ]);
+    //     }
+    //     return $this->htmlResponse();
+    // }
+
+
+        /**
+         * Main action to display content and handle the translation process
+         */
+        public function indexAction(): \Psr\Http\Message\ResponseInterface
+        {
+            $queryParams = $this->request->getQueryParams();
+            $pageUid = (int)($queryParams['id'] ?? 0);
+            $doTranslate = (int)($queryParams['doTranslate'] ?? 0);
+            
+            // Check if we just finished a translation process via the URL parameter
+            $finish = (int)($queryParams['finish'] ?? 0);
+
+            if ($pageUid > 0) {
+                $siteFinder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Site\SiteFinder::class);
+                $site = $siteFinder->getSiteByPageId($pageUid);
+                $allLanguages = $site->getLanguages();
+
+                // 1. If 'doTranslate' is triggered, run the process and redirect
+                if ($doTranslate === 1) {
+                    $this->runTranslateProcess($pageUid);
+                    
+                    // Redirect to the same page but with 'finish=1' to show the success screen
+                    // and 'doTranslate=0' to prevent accidental double-execution on refresh.
+                    return $this->redirect('index', null, null, ['id' => $pageUid, 'finish' => 1]);
+                }
+
+                $connectionPool = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class);
+                
+                // 2. Fetch Original English Content for the table display
+                $contentElements = $connectionPool->getQueryBuilderForTable('tt_content')
+                    ->select('uid', 'header', 'CType')
+                    ->from('tt_content')
+                    ->where('pid=' . $pageUid, 'sys_language_uid=0', 'deleted=0')
+                    ->orderBy('sorting', 'ASC')
+                    ->executeQuery()->fetchAllAssociative();
+
+                // 3. Fetch ALREADY Translated Content for preview
+                $translatedElements = $connectionPool->getQueryBuilderForTable('tt_content')
+                    ->select('uid', 'header', 'sys_language_uid', 'CType')
+                    ->from('tt_content')
+                    ->where('pid=' . $pageUid, 'sys_language_uid > 0', 'deleted=0')
+                    ->executeQuery()->fetchAllAssociative();
+
+                // Assigning all variables to Fluid
+                $this->view->assignMultiple([
+                    'pageUid' => $pageUid,
+                    'languages' => $allLanguages,
+                    'contentElements' => $contentElements,
+                    'contentCount' => count($contentElements),
+                    'translatedElements' => $translatedElements,
+                    // This boolean controls whether the table is hidden and the success message is shown
+                    'translationDone' => ($finish === 1) 
+                ]);
+            }
+            
+            return $this->htmlResponse();
+        }
+
+
+
+
+
+
+
+        // private function runTranslateProcess(int $pageUid): void
+        // {
+        //     $siteFinder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Site\SiteFinder::class);
+        //     $site = $siteFinder->getSiteByPageId($pageUid);
+        //     $languages = $site->getLanguages();
+            
+        //     $connectionPool = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class);
+            
+        //     // 1. Fetch English records with strict ORDER BY sorting
+        //     $sourceContents = $connectionPool->getQueryBuilderForTable('tt_content')
+        //         ->select('*')
+        //         ->from('tt_content')
+        //         ->where('pid=' . (int)$pageUid, 'sys_language_uid=0', 'deleted=0')
+        //         ->orderBy('sorting', 'ASC') // 🔥 Sequence 
+        //         ->executeQuery()
+        //         ->fetchAllAssociative();
+
+        //     $totalTranslated = 0;
+
+        //     foreach ($languages as $language) {
+        //         $targetLangId = $language->getLanguageId();
+        //         if ($targetLangId === 0) continue; 
+
+        //         $iso = substr((string)$language->getLocale(), 0, 2); 
+
+        //         foreach ($sourceContents as $content) {
+        //             $dataHandler = GeneralUtility::makeInstance(\TYPO3\CMS\Core\DataHandling\DataHandler::class);
+        //             $dataHandler->admin = true;
+        //             $datamap = [];
+
+        //             $translatedHeader = $this->googleTranslate((string)($content['header'] ?? ''), $iso);
+        //             $contentPlaceholder = 'NEW_CONTENT_' . uniqid();
+
+        //             // Prepare Content with sequence
+        //             $datamap['tt_content'][$contentPlaceholder] = [
+        //                 'pid' => $pageUid,
+        //                 'sys_language_uid' => $targetLangId,
+        //                 'l10n_parent' => $content['uid'], 
+        //                 'l10n_source' => $content['uid'],
+        //                 'CType' => $content['CType'],
+        //                 'sorting' => $content['sorting'], // 🔥 Same sorting as original
+        //                 'header' => $translatedHeader ?: $content['header'],
+        //                 'bodytext' => $content['bodytext'], 
+        //                 'pi_flexform' => $content['pi_flexform'],
+        //                 'image' => $content['image']
+        //             ];
+
+        //             // Image Reference logic
+        //             $fileReferences = $connectionPool->getQueryBuilderForTable('sys_file_reference')
+        //                 ->select('*')
+        //                 ->from('sys_file_reference')
+        //                 ->where('uid_foreign=' . (int)$content['uid'], "tablenames='tt_content'", 'deleted=0')
+        //                 ->executeQuery()
+        //                 ->fetchAllAssociative();
+
+        //             $refPlaceholders = [];
+        //             foreach ($fileReferences as $ref) {
+        //                 $refPlaceholder = 'NEW_REF_' . uniqid();
+        //                 $refPlaceholders[] = $refPlaceholder;
+        //                 $datamap['sys_file_reference'][$refPlaceholder] = [
+        //                     'pid' => $ref['pid'],
+        //                     'sys_language_uid' => $targetLangId,
+        //                     'uid_local' => $ref['uid_local'], 
+        //                     'uid_foreign' => $contentPlaceholder,
+        //                     'tablenames' => 'tt_content',
+        //                     'fieldname' => $ref['fieldname'],
+        //                     'sorting_foreign' => $ref['sorting_foreign'],
+        //                 ];
+        //             }
+
+        //             $dataHandler->start($datamap, []);
+        //             $dataHandler->process_datamap();
+        //             $newIdsMap = $dataHandler->substNEWwithIDs;
+
+        //             if (isset($newIdsMap[$contentPlaceholder])) {
+        //                 $realNewContentUid = (int)$newIdsMap[$contentPlaceholder];
+        //                 $totalTranslated++;
+
+        //                 // Image Sync
+        //                 foreach ($refPlaceholders as $rp) {
+        //                     if (isset($newIdsMap[$rp])) {
+        //                         $connectionPool->getConnectionForTable('sys_file_reference')->update(
+        //                             'sys_file_reference',
+        //                             ['uid_foreign' => $realNewContentUid],
+        //                             ['uid' => (int)$newIdsMap[$rp]]
+        //                         );
+        //                     }
+        //                 }
+
+        //                 // Custom Log table insert
+        //                 $connectionPool->getConnectionForTable('tx_autotranslate_domain_model_autotranslate')->insert(
+        //                     'tx_autotranslate_domain_model_autotranslate',
+        //                     [
+        //                         'page_uid' => $pageUid,
+        //                         'source_lang' => 0,
+        //                         'target_lang' => $targetLangId,
+        //                         'records_translated' => $realNewContentUid, 
+        //                         'records_originaluid' => $content['uid'],
+        //                         'status' => 'success'
+        //                     ]
+        //                 );
+        //             }
+        //             unset($dataHandler);
+        //         }
+        //     }
+
+        //     // Cache clearing
+        //     GeneralUtility::makeInstance(\TYPO3\CMS\Core\Cache\CacheManager::class)
+        //         ->flushCachesInGroupByTag('pages', 'pageId_' . $pageUid);
+
+        //     // 🔥 FIXED FLASH MESSAGE (Compatible with latest TYPO3)
+        //     $message = GeneralUtility::makeInstance(
+        //         FlashMessage::class,
+        //         "Successfully translated $totalTranslated elements. The sequence is matched with the original language.",
+        //         'Translation Success',
+        //         ContextualFeedbackSeverity::OK, // change
+        //         true
+        //     );
+        //     $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
+        //     $messageQueue = $flashMessageService->getMessageQueueByIdentifier();
+        //     $messageQueue->addMessage($message);
+            
+        // }
+
+//   private function runTranslateProcess(int $pageUid): void
+// {
+//     $siteFinder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Site\SiteFinder::class);
+//     $site = $siteFinder->getSiteByPageId($pageUid);
+//     $languages = $site->getLanguages();
+    
+//     $connectionPool = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class);
+//     $contentConn = $connectionPool->getConnectionForTable('tt_content');
+
+//     // 1. Fetch ALL English records
+//     $sourceContents = $connectionPool->getQueryBuilderForTable('tt_content')
+//         ->select('*')
+//         ->from('tt_content')
+//         ->where('pid=' . (int)$pageUid, 'sys_language_uid=0', 'deleted=0')
+//         ->orderBy('sorting', 'ASC') 
+//         ->executeQuery()
+//         ->fetchAllAssociative();
+
+//     foreach ($languages as $language) {
+//         $targetLangId = $language->getLanguageId();
+//         if ($targetLangId === 0) continue; // Skip default language
+
+//         $iso = substr((string)$language->getLocale(), 0, 2); 
+
+//         foreach ($sourceContents as $content) {
+            
+//             // 🔥 CRITICAL CHECK: Check if this specific element is already translated for THIS language
+//             $alreadyExists = $connectionPool->getQueryBuilderForTable('tt_content')
+//                 ->select('uid')
+//                 ->from('tt_content')
+//                 ->where(
+//                     'l18n_parent = ' . (int)$content['uid'],
+//                     'sys_language_uid = ' . (int)$targetLangId,
+//                     'deleted = 0'
+//                 )
+//                 ->executeQuery()
+//                 ->fetchOne();
+
+//             // If it exists, skip to the next content/language
+//             if ($alreadyExists) {
+//                 continue; 
+//             }
+
+//             // 2. Start Mirroring if it doesn't exist
+//             $insertData = $content;
+//             unset($insertData['uid']); 
+//             $insertData['pid'] = $pageUid;
+//             $insertData['sys_language_uid'] = $targetLangId;
+//             $insertData['l18n_parent'] = $content['uid']; 
+//             $insertData['l10n_source'] = $content['uid'];
+//             $insertData['tstamp'] = time();
+//             $insertData['crdate'] = time();
+
+//             // 3. Translate Text
+//             $insertData['header'] = $this->googleTranslate((string)($content['header'] ?? ''), $iso) ?: $content['header'];
+//             if (!empty($content['bodytext'])) {
+//                 $insertData['bodytext'] = $this->googleTranslate((string)$content['bodytext'], $iso) ?: $content['bodytext'];
+//             }
+
+//             // Mask fields translation
+//             foreach ($insertData as $fieldName => $value) {
+//                 if (str_starts_with($fieldName, 'tx_mask_') && is_string($value) && strlen($value) > 3 && !is_numeric($value)) {
+//                     $insertData[$fieldName] = $this->googleTranslate($value, $iso);
+//                 }
+//             }
+
+//             if (array_key_exists('l18n_diffsource', $content)) {
+//                 $insertData['l18n_diffsource'] = serialize($content);
+//             }
+
+//             // 4. Insert the Mirror Record
+//             $contentConn->insert('tt_content', $insertData);
+//             $newContentUid = (int)$contentConn->lastInsertId();
+
+//             // 5. Mirror Images/File References
+//             $fileReferences = $connectionPool->getQueryBuilderForTable('sys_file_reference')
+//                 ->select('*')
+//                 ->from('sys_file_reference')
+//                 ->where('uid_foreign=' . (int)$content['uid'], "tablenames='tt_content'", 'deleted=0')
+//                 ->orderBy('sorting_foreign', 'ASC')
+//                 ->executeQuery()
+//                 ->fetchAllAssociative();
+
+//             foreach ($fileReferences as $ref) {
+//                 $refData = $ref;
+//                 unset($refData['uid']);
+//                 $refData['sys_language_uid'] = $targetLangId;
+//                 $refData['uid_foreign'] = $newContentUid;
+//                 $refData['tstamp'] = time();
+//                 $refData['crdate'] = time();
+//                 $connectionPool->getConnectionForTable('sys_file_reference')->insert('sys_file_reference', $refData);
+//             }
+//         }
+//     }
+
+//     \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Cache\CacheManager::class)
+//         ->flushCachesInGroupByTag('pages', 'pageId_' . $pageUid);
+// }
+
+
+// all working without repeat element//
+
+         private function runTranslateProcess(int $pageUid): void
+         {
+        //     $siteFinder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Site\SiteFinder::class);
+        //     $site = $siteFinder->getSiteByPageId($pageUid);
+        //     $languages = $site->getLanguages();
+            
+        //     $connectionPool = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class);
+        //     $contentConn = $connectionPool->getConnectionForTable('tt_content');
+
+        //     // 1. Fetch ALL columns (*) from English records strictly by sorting
+        //     $sourceContents = $connectionPool->getQueryBuilderForTable('tt_content')
+        //         ->select('*')
+        //         ->from('tt_content')
+        //         ->where('pid=' . (int)$pageUid, 'sys_language_uid=0', 'deleted=0')
+        //         ->orderBy('sorting', 'ASC') 
+        //         ->executeQuery()
+        //         ->fetchAllAssociative();
+
+        //     foreach ($languages as $language) {
+        //         $targetLangId = $language->getLanguageId();
+        //         if ($targetLangId === 0) continue; 
+
+        //         $iso = substr((string)$language->getLocale(), 0, 2); 
+
+        //         foreach ($sourceContents as $content) {
+                    
+        //             // 2. STRICT DUPLICATION CHECK
+        //             // Checks if a translation already exists for this specific UID and Language
+        //             $exists = $connectionPool->getQueryBuilderForTable('tt_content')
+        //                 ->select('uid')
+        //                 ->from('tt_content')
+        //                 ->where(
+        //                     'l18n_parent = ' . (int)$content['uid'],
+        //                     'sys_language_uid = ' . (int)$targetLangId,
+        //                     'deleted = 0'
+        //                 )
+        //                 ->executeQuery()
+        //                 ->fetchOne();
+
+        //             if ($exists) {
+        //                 continue; // Skip already translated records
+        //             }
+
+        //             // 3. FULL RECORD CLONE
+        //             // Start with an exact copy of the source row (all 100+ fields)
+        //             $insertData = $content;
+
+        //             // 4. RESET IDENTITY & METADATA
+        //             unset($insertData['uid']); 
+        //             $insertData['pid'] = $pageUid;
+        //             $insertData['sys_language_uid'] = $targetLangId;
+        //             $insertData['l18n_parent'] = $content['uid']; 
+        //             $insertData['l10n_source'] = $content['uid'];
+        //             $insertData['tstamp'] = time();
+        //             $insertData['crdate'] = time();
+
+        //             // 5. UNIVERSAL FIELD SCANNER
+        //             // This loop looks at EVERY field in the record automatically
+        //             foreach ($insertData as $fieldName => $value) {
+        //                 // We only want to translate fields that contain actual text
+        //                 if (is_string($value) && !empty($value)) {
+                            
+        //                     // SKIP technical fields that should never be translated
+        //                     $technicalFields = [
+        //                         'CType', 'list_type', 'layout', 'frame_class', 
+        //                         'space_before_class', 'space_after_class', 
+        //                         'header_layout', 'header_position', 'imageorient'
+        //                     ];
+
+        //                     if (in_array($fieldName, $technicalFields)) {
+        //                         continue;
+        //                     }
+
+        //                     // Only translate if the value is long enough and not just numbers/IDs
+        //                     // This will catch subheader, bodytext, and ALL tx_mask fields automatically
+        //                     if (strlen($value) > 2 && !is_numeric($value)) {
+        //                         $insertData[$fieldName] = $this->googleTranslate((string)$value, $iso);
+        //                     }
+        //                 }
+        //             }
+
+        //             // 6. SQL COMPATIBILITY (l18n_diffsource)
+        //             if (array_key_exists('l18n_diffsource', $content)) {
+        //                 $insertData['l18n_diffsource'] = serialize($content);
+        //             }
+
+        //             // 7. INSERT THE MIRRORED RECORD
+        //             $contentConn->insert('tt_content', $insertData);
+        //             $newContentUid = (int)$contentConn->lastInsertId();
+
+        //             // 8. MIRROR IMAGE/FILE REFERENCES
+        //             $fileReferences = $connectionPool->getQueryBuilderForTable('sys_file_reference')
+        //                 ->select('*')
+        //                 ->from('sys_file_reference')
+        //                 ->where('uid_foreign=' . (int)$content['uid'], "tablenames='tt_content'", 'deleted=0')
+        //                 ->orderBy('sorting_foreign', 'ASC')
+        //                 ->executeQuery()
+        //                 ->fetchAllAssociative();
+
+        //             foreach ($fileReferences as $ref) {
+        //                 $refData = $ref;
+        //                 unset($refData['uid']);
+        //                 $refData['sys_language_uid'] = $targetLangId;
+        //                 $refData['uid_foreign'] = $newContentUid;
+        //                 $refData['tstamp'] = time();
+        //                 $refData['crdate'] = time();
+        //                 $connectionPool->getConnectionForTable('sys_file_reference')->insert('sys_file_reference', $refData);
+        //             }
+        //         }
+        //     }
+
+        //     // Clear TYPO3 cache
+        //     \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Cache\CacheManager::class)
+        //         ->flushCachesInGroupByTag('pages', 'pageId_' . $pageUid);
+         }
+      
+//
+
+        private function googleTranslate(string $text, string $target): string
+        {
+            // If text is empty or just HTML tags, don't call API
+            if (empty(trim(strip_tags($text)))) return $text;
+
+            try {
+                $url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=" . $target . "&dt=t&q=" . urlencode($text);
+
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 10); // Don't wait more than 10 seconds
+                $output = curl_exec($ch);
+                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                curl_close($ch);
+
+                // If Google API returns error (like 429), return original text immediately
+                if ($httpCode !== 200 || !$output) {
+                    return $text; 
+                }
+
+                $res = json_decode((string)$output, true);
+                $fullTranslation = "";
+                if (isset($res[0]) && is_array($res[0])) {
+                    foreach ($res[0] as $segment) {
+                        $fullTranslation .= $segment[0] ?? '';
+                    }
+                }
+
+                return !empty($fullTranslation) ? $fullTranslation : $text;
+
+            } catch (\Exception $e) {
+                // On any error, return the original English text
+                return $text; 
+            }
+        }
+
+
+    // /**
+    //  * action list
+    //  *
+    //  * @return \Psr\Http\Message\ResponseInterface
+    //  */
+    // public function listAction(): \Psr\Http\Message\ResponseInterface
+    // {
+    //     $autotranslates = $this->autotranslateRepository->findAll();
+    //     $this->view->assign('autotranslates', $autotranslates);
+    //     return $this->htmlResponse();
+    // }
+
+    // /**
+    //  * action show
+    //  *
+    //  * @param \RD\Autotranslate\Domain\Model\Autotranslate $autotranslate
+    //  * @return \Psr\Http\Message\ResponseInterface
+    //  */
+    // public function showAction(\RD\Autotranslate\Domain\Model\Autotranslate $autotranslate): \Psr\Http\Message\ResponseInterface
+    // {
+    //     $this->view->assign('autotranslate', $autotranslate);
+    //     return $this->htmlResponse();
+    // }
+
+    // /**
+    //  * action new
+    //  *
+    //  * @return \Psr\Http\Message\ResponseInterface
+    //  */
+    // public function newAction(): \Psr\Http\Message\ResponseInterface
+    // {
+    //     return $this->htmlResponse();
+    // }
+
+    // /**
+    //  * action create
+    //  *
+    //  * @param \RD\Autotranslate\Domain\Model\Autotranslate $newAutotranslate
+    //  */
+    // public function createAction(\RD\Autotranslate\Domain\Model\Autotranslate $newAutotranslate)
+    // {
+    //     $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/p/friendsoftypo3/extension-builder/master/en-us/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+    //     $this->autotranslateRepository->add($newAutotranslate);
+    //     $this->redirect('list');
+    // }
+
+    // /**
+    //  * action edit
+    //  *
+    //  * @param \RD\Autotranslate\Domain\Model\Autotranslate $autotranslate
+    //  * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("autotranslate")
+    //  * @return \Psr\Http\Message\ResponseInterface
+    //  */
+    // public function editAction(\RD\Autotranslate\Domain\Model\Autotranslate $autotranslate): \Psr\Http\Message\ResponseInterface
+    // {
+    //     $this->view->assign('autotranslate', $autotranslate);
+    //     return $this->htmlResponse();
+    // }
+
+    // /**
+    //  * action update
+    //  *
+    //  * @param \RD\Autotranslate\Domain\Model\Autotranslate $autotranslate
+    //  */
+    // public function updateAction(\RD\Autotranslate\Domain\Model\Autotranslate $autotranslate)
+    // {
+    //     $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/p/friendsoftypo3/extension-builder/master/en-us/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+    //     $this->autotranslateRepository->update($autotranslate);
+    //     $this->redirect('list');
+    // }
+
+    // /**
+    //  * action delete
+    //  *
+    //  * @param \RD\Autotranslate\Domain\Model\Autotranslate $autotranslate
+    //  */
+    // public function deleteAction(\RD\Autotranslate\Domain\Model\Autotranslate $autotranslate)
+    // {
+    //     $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/p/friendsoftypo3/extension-builder/master/en-us/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+    //     $this->autotranslateRepository->remove($autotranslate);
+    //     $this->redirect('list');
+    // }
+}

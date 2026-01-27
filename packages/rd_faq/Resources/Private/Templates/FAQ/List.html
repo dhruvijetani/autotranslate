@@ -1,0 +1,40 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+<f:section name="content">
+
+<f:if condition="{faqs}">
+  <f:then>
+    <div class="faq-container">
+      <h1><f:translate key="tx_faq_domain_model_faq.heading" /></h1>
+      <f:flashMessages />
+      <div class="faq-accordion">
+        <f:if condition="{settings.enablePagination}">
+          <f:then>
+            <f:for each="{pagination.paginator.paginatedItems}" as="faq" iteration="iterator">
+                <div class="faq-accordion-item">
+                  <f:render partial="List/Item" arguments="{_all}" />
+                </div>
+            </f:for>
+            <f:render partial="List/Pagination"
+              arguments="{pagination: pagination.pagination, paginator: pagination.paginator}" />
+          </f:then>
+          <f:else>
+            <f:for each="{faqs}" as="faq">
+              <div class="faq-accordion-item">
+                <f:render partial="List/Item" arguments="{_all}" />
+              </div>
+            </f:for>
+          </f:else>
+        </f:if>
+      </div>
+    </div>
+  </f:then>
+  <f:else>
+      <div class="no-faq-found">
+				<f:translate key="list_nofaqfound"  extensionName="rd_faq"/>
+			</div>
+  </f:else>
+</f:if>
+</f:section>
+
+</html>

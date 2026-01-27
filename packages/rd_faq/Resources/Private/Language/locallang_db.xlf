@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:rd_faq/Resources/Private/Language/locallang_db.xlf" date="2025-05-14T08:25:42Z" product-name="rd_faq">
+		<header/>
+		<body>
+			<trans-unit id="faqplugintab.header" resname="faqplugintab.header">
+				<source>Rd F A Q</source>
+			</trans-unit>
+			<trans-unit id="tx_rdfaq_domain_model_faq" resname="tx_rdfaq_domain_model_faq">
+				<source>Rd F A Q</source>
+			</trans-unit>
+			<trans-unit id="tx_faq_domain_model_faq.description" resname="tx_faq_domain_model_faq.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_faq_domain_model_faq.title" resname="tx_faq_domain_model_faq.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_faq_domain_model_faq.title.description" resname="tx_faq_domain_model_faq.title.description">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_faq_domain_model_faq.slug" resname="tx_faq_domain_model_faq.slug">
+				<source>Slug</source>
+			</trans-unit>
+			<trans-unit id="tx_faq_domain_model_faq.slug.description" resname="tx_faq_domain_model_faq.slug.description">
+				<source>Slug</source>
+			</trans-unit>
+			<trans-unit id="tx_faq_domain_model_faq.description.description" resname="tx_faq_domain_model_faq.description.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_faq_domain_model_faq.image" resname="tx_faq_domain_model_faq.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_faq_domain_model_faq.image.description" resname="tx_faq_domain_model_faq.image.description">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_faq_domain_model_faq.sorting" resname="tx_faq_domain_model_faq.sorting">
+				<source>Sorting</source>
+			</trans-unit>
+			<trans-unit id="tx_faq_domain_model_faq.sorting.description" resname="tx_faq_domain_model_faq.sorting.description">
+				<source>Sorting</source>
+			</trans-unit>
+			<trans-unit id="tx_faq_domain_model_faq.category" resname="tx_faq_domain_model_faq.category">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="tx_faq_domain_model_faq.category.description" resname="tx_faq_domain_model_faq.category.description">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="tx_rdfaq_domain_model_category" resname="tx_rdfaq_domain_model_category">
+				<source>Rd FAQ Category</source>
+			</trans-unit>
+			<trans-unit id="tx_rdfaq_domain_model_category.description" resname="tx_rdfaq_domain_model_category.description">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="tx_rdfaq_domain_model_category.title" resname="tx_rdfaq_domain_model_category.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_rdfaq_domain_model_category.title.description" resname="tx_rdfaq_domain_model_category.title.description">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_rdfaq_domain_model_category.slug" resname="tx_rdfaq_domain_model_category.slug">
+				<source>Slug</source>
+			</trans-unit>
+			<trans-unit id="tx_rdfaq_domain_model_category.slug.description" resname="tx_rdfaq_domain_model_category.slug.description">
+				<source>Slug</source>
+			</trans-unit>
+			<trans-unit id="tx_rdfaq_domain_model_category.image" resname="tx_rdfaq_domain_model_category.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_rdfaq_domain_model_category.image.description" resname="tx_rdfaq_domain_model_category.image.description">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_rdfaq_domain_model_category.sorting" resname="tx_rdfaq_domain_model_category.sorting">
+				<source>Sorting</source>
+			</trans-unit>
+			<trans-unit id="tx_rdfaq_domain_model_category.sorting.description" resname="tx_rdfaq_domain_model_category.sorting.description">
+				<source>Sorting</source>
+			</trans-unit>
+			<trans-unit id="tx_faq_faqlist.name" resname="tx_faq_faqlist.name">
+				<source>List Of FAQs</source>
+			</trans-unit>
+			<trans-unit id="tx_faq_faqlist.description" resname="tx_faq_faqlist.description">
+				<source>Listing Of All FAQs</source>
+			</trans-unit>
+			<trans-unit id="tx_faq_faqdetail.name" resname="tx_faq_faqdetail.name">
+				<source>Detail Of FAQ</source>
+			</trans-unit>
+			<trans-unit id="tx_faq_faqdetail.description" resname="tx_faq_faqdetail.description">
+				<source>Detail Of Single FAQ</source>
+			</trans-unit>
+			<trans-unit id="tx_rdfaq_domain_model_category.parentcategory" resname="tx_rdfaq_domain_model_category.parentcategory">
+				<source>ParentCategory</source>
+			</trans-unit>
+			<trans-unit id="tx_rdfaq_domain_model_category.parentcategory.description" resname="tx_rdfaq_domain_model_category.parentcategory.description">
+				<source>ParentCategory</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

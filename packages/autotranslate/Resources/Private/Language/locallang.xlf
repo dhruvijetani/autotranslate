@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:autotranslate/Resources/Private/Language/locallang.xlf" date="2026-01-23T11:07:11Z" product-name="autotranslate">
+		<header/>
+		<body>
+			<trans-unit id="tx_autotranslate_domain_model_autotranslate" resname="tx_autotranslate_domain_model_autotranslate">
+				<source>Autotranslate</source>
+			</trans-unit>
+			<trans-unit id="tx_autotranslate_domain_model_autotranslate.description" resname="tx_autotranslate_domain_model_autotranslate.description">
+				<source>Autotranslate</source>
+			</trans-unit>
+			<trans-unit id="tx_autotranslate_domain_model_autotranslate.page_uid" resname="tx_autotranslate_domain_model_autotranslate.page_uid">
+				<source>Page Uid</source>
+			</trans-unit>
+			<trans-unit id="tx_autotranslate_domain_model_autotranslate.page_uid.description" resname="tx_autotranslate_domain_model_autotranslate.page_uid.description">
+				<source>Page Uid</source>
+			</trans-unit>
+			<trans-unit id="tx_autotranslate_domain_model_autotranslate.source_lang" resname="tx_autotranslate_domain_model_autotranslate.source_lang">
+				<source>Source Lang</source>
+			</trans-unit>
+			<trans-unit id="tx_autotranslate_domain_model_autotranslate.source_lang.description" resname="tx_autotranslate_domain_model_autotranslate.source_lang.description">
+				<source>Source Lang</source>
+			</trans-unit>
+			<trans-unit id="tx_autotranslate_domain_model_autotranslate.target_lang" resname="tx_autotranslate_domain_model_autotranslate.target_lang">
+				<source>Target Lang</source>
+			</trans-unit>
+			<trans-unit id="tx_autotranslate_domain_model_autotranslate.target_lang.description" resname="tx_autotranslate_domain_model_autotranslate.target_lang.description">
+				<source>Target Lang</source>
+			</trans-unit>
+			<trans-unit id="tx_autotranslate_domain_model_autotranslate.records_translated" resname="tx_autotranslate_domain_model_autotranslate.records_translated">
+				<source>Records Translated</source>
+			</trans-unit>
+			<trans-unit id="tx_autotranslate_domain_model_autotranslate.records_translated.description" resname="tx_autotranslate_domain_model_autotranslate.records_translated.description">
+				<source>Records Translated</source>
+			</trans-unit>
+			<trans-unit id="tx_autotranslate_domain_model_autotranslate.status" resname="tx_autotranslate_domain_model_autotranslate.status">
+				<source>Status</source>
+			</trans-unit>
+			<trans-unit id="tx_autotranslate_domain_model_autotranslate.status.description" resname="tx_autotranslate_domain_model_autotranslate.status.description">
+				<source>Status</source>
+			</trans-unit>
+			<trans-unit id="tx_autotranslate_domain_model_autotranslate.message" resname="tx_autotranslate_domain_model_autotranslate.message">
+				<source>Message</source>
+			</trans-unit>
+			<trans-unit id="tx_autotranslate_domain_model_autotranslate.message.description" resname="tx_autotranslate_domain_model_autotranslate.message.description">
+				<source>Message</source>
+			</trans-unit>
+			<trans-unit id="mlang_tabs_tab" resname="mlang_tabs_tab">
+				<source>Auto Translate</source>
+			</trans-unit>
+
+			<trans-unit id="index.target_languages" resname="index.target_languages">
+				<source>Target Languages</source>
+			</trans-unit>
+			<trans-unit id="index.source_elements" resname="index.source_elements">
+				<source>Original Content Elements</source>
+			</trans-unit>
+			<trans-unit id="index.btn_translate" resname="index.btn_translate">
+				<source>Start Page Translation</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,33 @@
+plugin.tx_rdfaq {
+    view {
+        templateRootPaths.0 = EXT:rd_faq/Resources/Private/Templates/
+        templateRootPaths.1 = {$plugin.tx_rdfaq.view.templateRootPath}
+        partialRootPaths.0 = EXT:rd_faq/Resources/Private/Partials/
+        partialRootPaths.1 = {$plugin.tx_rdfaq.view.partialRootPath}
+        layoutRootPaths.0 = EXT:rd_faq/Resources/Private/Layouts/
+        layoutRootPaths.1 = {$plugin.tx_rdfaq.view.layoutRootPath}
+    }
+    persistence {
+        storagePid = {$plugin.tx_rdfaq.persistence.storagePid}
+        #recursive = 1
+    }
+    features {
+        #skipDefaultArguments = 1
+        # if set to 1, the enable fields are ignored in BE context
+        ignoreAllEnableFieldsInBe = 0
+    }
+    mvc {
+        #callDefaultActionIfActionCantBeResolved = 1
+    }
+    settings {
+        orderFieldAllowed = uid,title,sorting
+    }
+}
+
+page.includeCSS {
+    faq = EXT:rd_faq/Resources/Public/Css/faq.css
+}
+page.includeJS {
+    faq = EXT:rd_faq/Resources/Public/Js/faq.js
+}
+

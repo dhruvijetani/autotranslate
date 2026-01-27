@@ -1,0 +1,16 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<div class="faq-accordion-item-header">
+    <div class="faq-accordion-item-header-image">
+        <f:if condition="{faq.image}">
+                <f:image image="{faq.image}" alt="{faq.title}" class="faq-header-image" />
+        </f:if>
+    </div>
+    <span>{faq.title}</span>
+</div>
+<div class="faq-accordion-item-body">
+    <div class="faq-accordion-item-body-content">
+         {faq.description ->f:format.html()}
+    </div>
+</div>
+</html>

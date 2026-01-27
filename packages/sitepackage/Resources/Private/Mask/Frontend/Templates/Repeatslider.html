@@ -1,0 +1,22 @@
+<f:if condition="{data.tx_mask_heading}">
+    {data.tx_mask_heading}
+</f:if>
+<f:if condition="{data.tx_mask_repeatesliders}">
+    <ul>
+        <f:for each="{data.tx_mask_repeatesliders}" as="data_item">
+            <li>
+                <f:for each="{data_item.tx_mask_image}" as="file">
+                    <f:image image="{file}" width="200" />
+                    {file.description}
+                </f:for>
+                <f:for each="{data_item.tx_mask_media}" as="file">
+                    <f:media file="{file}" width="200" />
+                    {file.description}
+                </f:for>
+                <f:if condition="{data_item.tx_mask_text}">
+                    {data_item.tx_mask_text -> f:format.nl2br()}
+                </f:if>
+            </li>
+        </f:for>
+    </ul>
+</f:if>

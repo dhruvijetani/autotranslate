@@ -1,0 +1,38 @@
+
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+    <f:if condition="{data} || {pluginName}">
+    <f:then>
+        <table class="table table-condensed table-hover faq-table">
+            <f:if condition="{pluginName}">
+                <thead>
+                <tr>
+                    <th colspan="2">
+                        <strong>
+                            <f:translate key="LLL:EXT:rd_faq/Resources/Private/Language/locallang_be.xlf:extension.name" /><br/>
+                            {pluginName}
+                        </strong>
+                    </th>
+                </tr>
+                </thead>
+            </f:if>
+            <tbody>
+            <f:for each="{data}" as="item">
+                <tr>
+                    <th>{item.title}</th>
+                    <td>
+                        <f:if condition="{item.value} == 'icon'">
+                            <f:then>
+                                <core:icon identifier="{item.icon}" size="small" />
+                            </f:then>
+                            <f:else>
+                                {item.value -> f:format.raw()}
+                            </f:else>
+                        </f:if>
+                    </td>
+                </tr>
+            </f:for>
+            </tbody>
+        </table>
+    </f:then>
+</f:if>
+</html>

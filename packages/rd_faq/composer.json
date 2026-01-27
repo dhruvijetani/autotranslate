@@ -1,0 +1,41 @@
+{
+    "name": "remotedevs/rd-faq",
+    "type": "typo3-cms-extension",
+    "description": "This FAQ Extension allow to manage and Display questions and answers easily in the frontend. ",
+    "authors": [
+        {
+            "name": "Solanki Payal",
+            "role": "Developer"
+        }
+    ],
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "typo3/cms-core": "^13.4"
+    },
+    "require-dev": {
+        "typo3/testing-framework": "^6.9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "RemoteDevs\\RdFaq\\": "Classes"
+        }
+    },
+    "replace": {
+        "typo3-ter/rd_faq": "self.version"
+    },
+    "config": {
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin"
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
+        ]
+    },
+    "extra": {
+        "typo3/cms": {
+            "web-dir": ".Build/public",
+            "extension-key": "rd_faq"
+        }
+    }
+}

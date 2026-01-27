@@ -1,0 +1,48 @@
+<f:if condition="{data.tx_mask_text}">
+    {data.tx_mask_text -> f:format.nl2br()}
+</f:if>
+<f:if condition="{data.tx_mask_firstre}">
+    <ul>
+        <f:for each="{data.tx_mask_firstre}" as="data_item">
+            <li>
+                <f:for each="{data_item.tx_mask_image}" as="file">
+                    <f:image image="{file}" width="200" />
+                    {file.description}
+                </f:for>
+                <f:if condition="{data_item.tx_mask_text2}">
+                    {data_item.tx_mask_text2}
+                </f:if>
+                <f:if condition="{data_item.tx_mask_secondrepeat}">
+                    <ul>
+                        <f:for each="{data_item.tx_mask_secondrepeat}" as="data_item_item">
+                            <li>
+                                <f:if condition="{data_item_item.tx_mask_text3}">
+                                    {data_item_item.tx_mask_text3 -> f:format.html()}
+                                </f:if>
+                                <f:for each="{data_item_item.tx_mask_video}" as="file">
+                                    <f:media file="{file}" width="200" />
+                                    {file.description}
+                                </f:for>
+                                <f:if condition="{data_item_item.tx_mask_thirsrepeat}">
+                                    <ul>
+                                        <f:for each="{data_item_item.tx_mask_thirsrepeat}" as="data_item_item_item">
+                                            <li>
+                                                <f:if condition="{data_item_item_item.tx_mask_int}">
+                                                    {data_item_item_item.tx_mask_int}
+                                                </f:if>
+                                                <f:for each="{data_item_item_item.tx_mask_img}" as="file">
+                                                    <f:image image="{file}" width="200" />
+                                                    {file.description}
+                                                </f:for>
+                                            </li>
+                                        </f:for>
+                                    </ul>
+                                </f:if>
+                            </li>
+                        </f:for>
+                    </ul>
+                </f:if>
+            </li>
+        </f:for>
+    </ul>
+</f:if>

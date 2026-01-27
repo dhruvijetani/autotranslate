@@ -1,0 +1,8 @@
+# Exclude my secret config
+private_config.php
+
+# Exclude dev folders
+.git
+.gitignore
+.ddev
+.editorconfig
