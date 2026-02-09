@@ -1,0 +1,113 @@
+{
+    "modules": [
+        {
+            "config": {
+                "position": [
+                    157,
+                    69
+                ]
+            },
+            "name": "New Model Object",
+            "value": {
+                "actionGroup": {
+                    "_default0_index": true,
+                    "_default1_list": false,
+                    "_default2_show": false,
+                    "_default3_new_create": false,
+                    "_default4_edit_update": false,
+                    "_default5_delete": false,
+                    "customActions": []
+                },
+                "name": "Log",
+                "objectsettings": {
+                    "addDeletedField": true,
+                    "addHiddenField": true,
+                    "addStarttimeEndtimeFields": true,
+                    "aggregateRoot": true,
+                    "categorizable": false,
+                    "description": "",
+                    "mapToTable": "",
+                    "parentClass": "",
+                    "sorting": false,
+                    "type": "Entity",
+                    "uid": "778013539978"
+                },
+                "propertyGroup": {
+                    "properties": [
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "pageUid",
+                            "propertyType": "Integer",
+                            "uid": "1487450174054"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "beUser",
+                            "propertyType": "Integer",
+                            "uid": "1027539669456"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "actionType",
+                            "propertyType": "String",
+                            "uid": "71121563747"
+                        }
+                    ]
+                },
+                "relationGroup": {
+                    "relations": []
+                }
+            }
+        }
+    ],
+    "properties": {
+        "backendModules": [],
+        "description": "",
+        "emConf": {
+            "category": "plugin",
+            "custom_category": "",
+            "dependsOn": "typo3 => 11.5.0-11.5.99\n",
+            "disableLocalization": true,
+            "disableVersioning": false,
+            "generateDocumentationTemplate": true,
+            "generateEditorConfig": false,
+            "generateEmptyGitRepository": false,
+            "sourceLanguage": "de",
+            "state": "stable",
+            "targetVersion": "11.5.0-11.5.99",
+            "version": "1.0.0"
+        },
+        "extensionKey": "rd_activitylog",
+        "name": "RD ActivityLog",
+        "originalExtensionKey": "rd_activitylog",
+        "originalVendorName": "RD",
+        "persons": [],
+        "plugins": [],
+        "vendorName": "RemoteDevs"
+    },
+    "wires": [],
+    "storagePath": "\/var\/www\/html\/typo3_11\/typo3conf\/ext\/",
+    "log": {
+        "last_modified": "2026-02-02 08:51",
+        "extension_builder_version": "11.0.13",
+        "be_user": " (1)"
+    }
+}

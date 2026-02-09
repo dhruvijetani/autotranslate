@@ -1,9 +1,22 @@
 {
     "name": "rd/autotranslate",
     "type": "typo3-cms-extension",
-    "description": "",
-    "authors": [],
+    "description": "A premium AI-powered auto-translation engine for TYPO3. It supports seamless translation of pages, content elements, FAL metadata, Flexforms, and IRRE child records using advanced API integration.", 
+    "authors": [
+        {
+            "name": "Dhruvi Jetani",
+            "role": "Developer"
+        }
+    ],
     "license": "GPL-2.0-or-later",
+    "keywords": [
+        "typo3",
+        "translation",
+        "auto-translate",
+        "google-translate",
+        "ai",
+        "localization"
+    ],
     "require": {
         "typo3/cms-core": "^13.4"
     },

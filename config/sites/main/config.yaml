@@ -1,4 +1,4 @@
-base: 'https://v13test.ddev.site/'
+base: /
 languages:
   -
     title: English
@@ -11,7 +11,7 @@ languages:
     flag: global
     languageId: 0
   -
-    title: gujrati
+    title: Gujarati
     enabled: true
     locale: guj
     hreflang: guj-GUj
@@ -58,5 +58,17 @@ languages:
     fallbacks: ''
     flag: pk
     languageId: 4
+  -
+    title: Malayalam
+    enabled: true
+    locale: ml-ML
+    hreflang: ml-ML
+    base: /ml/
+    websiteTitle: ''
+    navigationTitle: Malayalam
+    fallbackType: strict
+    fallbacks: ''
+    flag: in
+    languageId: 5
 rootPageId: 1
 websiteTitle: ''

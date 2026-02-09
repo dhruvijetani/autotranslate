@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="de" datatype="plaintext" original="EXT:rd_activitylog/Resources/Private/Language/locallang_csh_tx_rdactivitylog_domain_model_log.xlf" date="2026-02-02T08:51:16Z" product-name="rd_activitylog">
+		<header/>
+		<body>
+			<trans-unit id="page_uid.description" resname="page_uid.description">
+				<source>pageUid</source>
+			</trans-unit>
+			<trans-unit id="be_user.description" resname="be_user.description">
+				<source>beUser</source>
+			</trans-unit>
+			<trans-unit id="action_type.description" resname="action_type.description">
+				<source>actionType</source>
+			</trans-unit>
+			
+		</body>
+	</file>
+</xliff>

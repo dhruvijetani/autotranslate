@@ -2,10 +2,10 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Auto Translate',
-    'description' => '',
-    'category' => 'plugin',
-    'author' => '',
-    'author_email' => '',
+    'description' => 'A premium AI-powered auto-translation engine for TYPO3. Supports seamless translation of pages, content elements, FAL metadata, Flexforms, and IRRE child records.',   
+    'category' => 'module',
+    'author' => 'Dhruvi Jetani',
+    'author_email' => 'dhruvi.remotedevs@gmail.com',
     'state' => 'stable',
     'clearCacheOnLoad' => 0,
     'version' => '1.0.0',

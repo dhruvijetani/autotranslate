@@ -4,6 +4,35 @@
     "tables": {
         "tt_content": {
             "elements": {
+                "multi_repeater": {
+                    "color": "#000000",
+                    "colorOverlay": "#000000",
+                    "columns": [
+                        "tx_mask_2b3d3b047784a",
+                        "tx_mask_check",
+                        "tx_mask_video",
+                        "tx_mask_emailre"
+                    ],
+                    "description": "",
+                    "descriptions": [
+                        "",
+                        "",
+                        "",
+                        ""
+                    ],
+                    "icon": "",
+                    "iconOverlay": "",
+                    "key": "multi_repeater",
+                    "label": "multi repeater",
+                    "labels": [
+                        "tab",
+                        "check",
+                        "video",
+                        "emailrepe"
+                    ],
+                    "shortLabel": "",
+                    "sorting": 0
+                },
                 "repeatofrepeat": {
                     "color": "#000000",
                     "colorOverlay": "#000000",
@@ -52,6 +81,16 @@
                 }
             },
             "sql": {
+                "tx_mask_check": {
+                    "tt_content": {
+                        "tx_mask_check": "int(11) DEFAULT '0' NOT NULL"
+                    }
+                },
+                "tx_mask_emailre": {
+                    "tt_content": {
+                        "tx_mask_emailre": "int(11) unsigned DEFAULT '0' NOT NULL"
+                    }
+                },
                 "tx_mask_firstre": {
                     "tt_content": {
                         "tx_mask_firstre": "int(11) unsigned DEFAULT '0' NOT NULL"
@@ -71,9 +110,71 @@
                     "tt_content": {
                         "tx_mask_text": "mediumtext"
                     }
+                },
+                "tx_mask_video": {
+                    "tt_content": {
+                        "tx_mask_video": "int(11) unsigned DEFAULT '0' NOT NULL"
+                    }
                 }
             },
             "tca": {
+                "tx_mask_2b3d3b047784a": {
+                    "config": {
+                        "type": "tab"
+                    },
+                    "fullKey": "tx_mask_2b3d3b047784a",
+                    "key": "2b3d3b047784a",
+                    "type": "tab"
+                },
+                "tx_mask_check": {
+                    "config": {
+                        "items": [
+                            {
+                                "iconIdentifierChecked": "",
+                                "iconIdentifierUnchecked": "",
+                                "invertStateDisplay": true,
+                                "label": "yes"
+                            },
+                            {
+                                "iconIdentifierChecked": "",
+                                "iconIdentifierUnchecked": "",
+                                "label": "no"
+                            }
+                        ],
+                        "type": "check"
+                    },
+                    "fullKey": "tx_mask_check",
+                    "key": "check",
+                    "type": "check"
+                },
+                "tx_mask_emailre": {
+                    "config": {
+                        "appearance": {
+                            "enabledControls": {
+                                "delete": 1,
+                                "dragdrop": 1,
+                                "hide": 1,
+                                "info": 1,
+                                "localize": 1,
+                                "new": 1,
+                                "sort": 1
+                            },
+                            "levelLinksPosition": "top",
+                            "showAllLocalizationLink": 1,
+                            "showNewRecordLink": 1,
+                            "showPossibleLocalizationRecords": 1,
+                            "useSortable": 1
+                        },
+                        "foreign_field": "parentid",
+                        "foreign_sortby": "sorting",
+                        "foreign_table": "--inlinetable--",
+                        "foreign_table_field": "parenttable",
+                        "type": "inline"
+                    },
+                    "fullKey": "tx_mask_emailre",
+                    "key": "emailre",
+                    "type": "inline"
+                },
                 "tx_mask_firstre": {
                     "config": {
                         "appearance": {
@@ -148,6 +249,55 @@
                     "fullKey": "tx_mask_text",
                     "key": "text",
                     "type": "text"
+                },
+                "tx_mask_video": {
+                    "config": {
+                        "appearance": {
+                            "elementBrowserEnabled": 1,
+                            "enabledControls": {
+                                "delete": 1,
+                                "dragdrop": 1,
+                                "hide": 1,
+                                "info": 1,
+                                "localize": 1,
+                                "sort": 0
+                            },
+                            "fileByUrlAllowed": 1,
+                            "fileUploadAllowed": 1,
+                            "useSortable": 1
+                        },
+                        "minitems": ""
+                    },
+                    "fullKey": "tx_mask_video",
+                    "key": "video",
+                    "onlineMedia": [
+                        "youtube",
+                        "vimeo"
+                    ],
+                    "type": "media"
+                }
+            }
+        },
+        "tx_mask_emailre": {
+            "sql": {
+                "tx_mask_email": {
+                    "tx_mask_emailre": {
+                        "tx_mask_email": "varchar(255) DEFAULT '' NOT NULL"
+                    }
+                }
+            },
+            "tca": {
+                "tx_mask_email": {
+                    "config": {
+                        "nullable": 0,
+                        "type": "email"
+                    },
+                    "fullKey": "tx_mask_email",
+                    "inlineParent": "tx_mask_emailre",
+                    "key": "email",
+                    "label": "email",
+                    "order": 1,
+                    "type": "email"
                 }
             }
         },

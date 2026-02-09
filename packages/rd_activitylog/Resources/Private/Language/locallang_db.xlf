@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="de" datatype="plaintext" original="EXT:rd_activitylog/Resources/Private/Language/locallang_db.xlf" date="2026-02-02T08:51:16Z" product-name="rd_activitylog">
+		<header/>
+		<body>
+			<trans-unit id="tx_rdactivitylog_domain_model_log" resname="tx_rdactivitylog_domain_model_log">
+				<source>Log</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.description" resname="tx_rdactivitylog_domain_model_log.description">
+				<source>Log</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.page_uid" resname="tx_rdactivitylog_domain_model_log.page_uid">
+				<source>Page Uid</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.page_uid.description" resname="tx_rdactivitylog_domain_model_log.page_uid.description">
+				<source>Page Uid</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.be_user" resname="tx_rdactivitylog_domain_model_log.be_user">
+				<source>Be User</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.be_user.description" resname="tx_rdactivitylog_domain_model_log.be_user.description">
+				<source>Be User</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.action_type" resname="tx_rdactivitylog_domain_model_log.action_type">
+				<source>Action Type</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.action_type.description" resname="tx_rdactivitylog_domain_model_log.action_type.description">
+				<source>Action Type</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.user_os" resname="tx_rdactivitylog_domain_model_log.user_os">
+				<source>User Os</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.user_os.description" resname="tx_rdactivitylog_domain_model_log.user_os.description">
+				<source>User Os</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.details" resname="tx_rdactivitylog_domain_model_log.details">
+				<source>Details</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.details.description" resname="tx_rdactivitylog_domain_model_log.details.description">
+				<source>Details</source>
+			</trans-unit>
+
+			
+
+			
+		</body>
+	</file>
+</xliff>

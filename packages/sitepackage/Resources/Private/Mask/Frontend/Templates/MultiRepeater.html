@@ -1,0 +1,37 @@
+<f:variable name="check" value="{data.tx_mask_check}"/>
+<f:if condition="{check}">
+    <f:then>
+        <f:comment><!-- Do this, if checked --></f:comment>
+    </f:then>
+    <f:else>
+        <f:comment><!-- Else do this --></f:comment>
+    </f:else>
+</f:if>
+<f:if condition="{data.tx_mask_repe}">
+    <ul>
+        <f:for each="{data.tx_mask_repe}" as="data_item">
+            <li>
+                <f:if condition="{data_item.tx_mask_content}">
+                    <f:for each="{data_item.tx_mask_content}" as="data_item_item">
+                        <f:cObject typoscriptObjectPath="lib.tx_mask.content">{data_item_item.uid}</f:cObject>
+                    </f:for>
+                </f:if>
+            </li>
+        </f:for>
+    </ul>
+</f:if>
+<f:for each="{data.tx_mask_video}" as="file">
+    <f:media file="{file}" width="200" />
+    {file.description}
+</f:for>
+<f:if condition="{data.tx_mask_emailre}">
+    <ul>
+        <f:for each="{data.tx_mask_emailre}" as="data_item">
+            <li>
+                <f:if condition="{data_item.tx_mask_email}">
+                    <f:link.email email="{data_item.tx_mask_email}"/>
+                </f:if>
+            </li>
+        </f:for>
+    </ul>
+</f:if>

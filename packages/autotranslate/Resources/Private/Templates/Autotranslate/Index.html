@@ -1,157 +1,198 @@
-<f:comment>
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<div style="padding: 20px; font-family: sans-serif;">
-    <h1>Auto Translate Module</h1>
-    <hr>
-    <f:if condition="{pageUid}">
-        <f:then>
-            
-            <f:if condition="{translationDone}">
-                <f:then>
-                    <div style="text-align: center; padding: 60px; background: #eef9f0; border: 2px solid #c3e6cb; border-radius: 12px; margin-top: 20px;">
-                        <h2 style="color: #155724; font-size: 28px;">✅ Translation Success!</h2>
-                        <p style="font-size: 18px; color: #155724;">All content elements and images have been successfully processed.</p>
-                        
-                        <div style="margin-top: 30px;">
-                            <f:link.action action="index" arguments="{id: pageUid}" class="btn btn-primary" style="background: #007bff; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold;">
-                                🔙 Return to Translation Table
-                            </f:link.action>
-                        </div>
-                    </div>
-                </f:then>
-
-                <f:else>
-                    <div style="display: flex; gap: 20px;">
-                        <div style="flex: 1; border: 1px solid #ddd; padding: 15px; border-radius: 5px; background: #fff;">
-                            <h3>🌍 Target Languages</h3>
-                            <f:for each="{languages}" as="lang">
-                                <div style="padding: 6px 0; border-bottom: 1px solid #f0f0f0;">
-                                    <strong>{lang.title}</strong> <span style="color: #888;">({lang.twoLetterIsoCode})</span>
-                                </div>
-                            </f:for>
-                        </div>
-
-                        <div style="flex: 1; border: 1px solid #ddd; padding: 15px; border-radius: 5px; background: #fff;">
-                            <h3>📝 Content to Translate</h3>
-                            <p>Total elements: <strong>{contentCount}</strong></p>
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <f:for each="{contentElements}" as="content">
-                                    <tr>
-                                        <td style="padding: 8px; border: 1px solid #eee;">{content.header}</td>
-                                        <td style="padding: 4px; border: 1px solid #eee; font-size: 11px; color: #999;">{content.CType}</td>
-                                    </tr>
-                                </f:for>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div style="margin-top: 30px; text-align: center;">
-                        <f:link.action action="index" class="btn btn-danger" 
-                            additionalParams="{id: pageUid, doTranslate: 1}" 
-                            style="padding: 18px 40px; background: #d9534f; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                            🚀 Start Translation Now
-                        </f:link.action>
-                        <p style="color: #777; margin-top: 30px; ">Clicking this will all language versions automatically.</p>
-                    </div>
-                </f:else>
-            </f:if>
-
-        </f:then>
-        <f:else>
-            <div style="padding: 30px; background: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 5px;">
-                <strong>Notice:</strong> Please select a page from the Page Tree on the left to begin.
-            </div>
-        </f:else>
-    </f:if>
-</div>
-</html>
-</f:comment>
-
-
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-
    <script src="{f:uri.resource(path: 'Js/Translate.js', extensionName: 'autotranslate')}"></script>
-    <link rel="stylesheet" href="{f:uri.resource(path: 'Css/Backend.css', extensionName: 'autotranslate')}" />
-
-    <div class="translate-container">
-        <div id="translation-overlay" style="display: none;">
-            <div class="loader-spinner"></div>
-            <h2 style="margin-top: 20px;">Translating Content...</h2>
-            <p>Please wait, all fields are being mirrored.</p>
-        </div>
-        <h1>Auto Translate Dashboard</h1>
-        <hr>
-        <f:if condition="{pageUid}">
-            <f:then>
-                <f:if condition="{translationDone}">
-                    <f:then>
-                <div class="card success-card">
-                    <div class="card-body">
+   <link rel="stylesheet" href="{f:uri.resource(path: 'Css/Backend.css', extensionName: 'autotranslate')}" />
+   <f:variable name="lang">LLL:EXT:autotranslate/Resources/Private/Language/locallang.xlf:</f:variable>
+   <div class="translate-container">
+      <div id="translation-overlay" style="display: none;">
+         <div class="loader-spinner"></div>
+         <h2 style="margin-top: 20px;">
+            <f:translate key="{lang}overlay.translating" />
+         </h2>
+         <p>
+            <f:translate key="{lang}overlay.wait_message" />
+         </p>
+      </div>
+      <div class="dashboard-header">
+         <img src="{f:uri.resource(path: 'Icons/rdlogo.png', extensionName: 'autotranslate')}" alt="Logo" />
+         <h1 style="margin: 0;">
+            <f:translate key="{lang}dashboard.title" />
+         </h1>
+      </div>
+      <f:comment>
+         <h1>
+            <f:translate key="{lang}dashboard.title" />
+         </h1>
+      </f:comment>
+      <hr>
+      <f:if condition="{pageUid}">
+         <f:then>
+            <f:if condition="{translationDone}">
+               <f:then>
+                  <div class="card success-card">
+                     <div class="card-body">
                         <h1 class="success-title">
-                            <span class="success-icon">✔</span> Translation Complete
+                           <div class="icon-wrap">
+                              <div class="icon-circle">
+                                 <svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/>
+                                 </svg>
+                              </div>
+                           </div>
+                           <f:translate key="{lang}success.title" />
                         </h1>
                         <p class="success-text">
-                            Your page content, including all subheaders and custom fields, has been translated successfully.
+                           <f:translate key="{lang}success.message" />
                         </p>
                         <f:link.action action="index" arguments="{id: pageUid}" class="btn btn-primary success-btn">
-                            Return to Overview
+                           <f:translate key="{lang}success.button_return" />
                         </f:link.action>
-                    </div>
-                </div>
-
-                    </f:then>
-                    <f:else>
-                        <div class="dashboard-grid">
-                            <div class="card">
-                                <div class="card-header">🌍 Target Languages</div>
-                                <div class="card-body">
-                                    <f:for each="{languages}" as="lang">
-                                        <div class="lang-item">
-                                            <strong>{lang.title}</strong> <span class="badge">{lang.twoLetterIsoCode}</span>
-                                        </div>
-                                    </f:for>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">📝 Original Content Elements ({contentCount})</div>
-                                <div class="card-body" style="max-height: 400px; overflow-y: auto;">
-                                    <table class="table-preview">
-                                        <f:for each="{contentElements}" as="content">
-                                            <tr>
-                                                <td>
-                                                    <strong>
-                                                        <f:format.crop maxCharacters="50" append="...">
-                                                            {content.header}
-                                                        </f:format.crop>
-                                                    </strong>
-                                                </td>
-                                                <td><span class="label label-info">{content.CType}</span></td>
-                                                <td><small>Col: {content.colPos}</small></td>
-                                            </tr>
-                                        </f:for>
-                                    </table>
-                                </div>
-                            </div>
+                     </div>
+                  </div>
+               </f:then>
+               <f:else>
+                  <div class="dashboard-grid">
+                     <div class="card">
+                        <div class="card-header">
+                           <svg class="header-icon header-icon-globe" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                              <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                              <path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" fill="none" stroke="currentColor" stroke-width="2"/>
+                           </svg>
+                           <f:translate key="{lang}card.languages_title" />
                         </div>
-
-                        <div class="action-footer">
-                            <f:link.action id="start-translate-btn" action="index" 
-                                additionalParams="{id: pageUid, doTranslate: 1}" 
-                                class="btn-translate-shiny">
-                                <span class="btn-icon">🚀</span> 
-                                <span class="btn-text">Start Translation Now</span>
-                            </f:link.action>
-                            <p class="helper-text">Smart Sync: Only new content will be translated. Existing records are safely preserved.</p>
+                        <div class="card-body">
+                           <f:for each="{languages}" as="langObj">
+                              <div class="lang-item">
+                                 <strong>{langObj.title}</strong> <span class="badge">{langObj.twoLetterIsoCode}</span>
+                              </div>
+                           </f:for>
                         </div>
-                    </f:else>
-                </f:if>
-            </f:then>
-            <f:else>
-                <div class="alert alert-info">
-                    <h3>Select a Page</h3>
-                    <p>Please select a page from the tree to start translating.</p>
-                </div>
-            </f:else>
-        </f:if>
-    </div>
+                     </div>
+                     <f:comment>
+                        <div class="card">
+                           <div class="card-header">
+                              <div class="icon-wrapper">
+                                 <svg class="header-icon header-icon-pencil" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M3 17.25V21h3.75L19.81 7.94l-3.75-3.75L3 17.25z" fill="currentColor"/>
+                                    <path d="M20.71 6.04a1 1 0 000-1.41l-1.34-1.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="currentColor"/>
+                                 </svg>
+                              </div>
+                              <f:translate key="{lang}card.content_elements_title" />
+                              ({contentCount})
+                           </div>
+                           <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                              <table class="table-preview">
+                                 <f:for each="{contentElements}" as="content">
+                                    <tr>
+                                       <td>
+                                          <strong>
+                                             <f:format.crop maxCharacters="50" append="...">
+                                                {content.header}
+                                             </f:format.crop>
+                                          </strong>
+                                       </td>
+                                       <td><span class="label label-info">{content.CType}</span></td>
+                                       <td><small>Col: {content.colPos}</small></td>
+                                    </tr>
+                                 </f:for>
+                              </table>
+                           </div>
+                        </div>
+                     </f:comment>
+
+                     <!-- get backend user or page title and print -->
+                     <f:comment>
+                        <div class="card">
+                           <div class="card-header">
+                              <svg class="header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                 <path d="M12 12c2.7 0 4.5-2 4.5-4.5S14.7 3 12 3 7.5 5 7.5 7.5 9.3 12 12 12zm0 2.25c-3 0-9 1.5-9 4.5V21h18v-2.25c0-3-6-4.5-9-4.5z"/>
+                              </svg>
+                              Dashboard Overview
+                           </div>
+
+                           <div class="card-body">
+
+                              <div class="info-row">
+                                 <span class="label">Backend User</span>
+                                 <span class="value">
+                                    {backendUser.realName}
+                                    <br>
+                                    <small>@{backendUser.username}</small>
+                                 </span>
+                              </div>
+
+                              <hr>
+
+                              <div class="info-row">
+                                 <span class="label">Selected Page</span>
+                                 <span class="value">
+                                    {pageTitle}
+                                    <br>
+                                    <small>UID: {pageUid}</small>
+                                 </span>
+                              </div>
+
+                              <hr>
+
+                              <div class="info-row">
+                                 <span class="label">Content Elements</span>
+                                 <span class="stat-badge">{contentCount}</span>
+                              </div>
+
+                              <div class="progress-wrap">
+                                 <div class="progress-bar" style="width: {contentCount}0%"></div>
+                              </div>
+
+                           </div>
+                        </div>
+                      </f:comment>
+
+
+
+                  </div>
+                  <div class="action-footer">
+                     <f:link.action id="start-translate-btn" action="index" 
+                        additionalParams="{id: pageUid, doTranslate: 1}" 
+                        class="btn-translate-shiny">
+                        <span class="btn-icon">
+                           <svg class="rocket-svg-premium" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+                              <path d="M12 2.5s-4.5 4.5-4.5 10.5c0 2.5 1.5 4.5 1.5 4.5L7.5 21l3-1.5h3l3 1.5-1.5-3.5s1.5-2 1.5-4.5c0-6-4.5-10.5-4.5-10.5z" 
+                                 fill="currentColor" />
+                              <circle cx="12" cy="10" r="1.5" fill="rgba(0,0,0,0.3)" />
+                              <path class="rocket-flame" d="M10 20s.5 2 2 2 2-2 2-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" />
+                           </svg>
+                        </span>
+                        <span class="btn-text">
+                           <f:translate key="{lang}button.start_translation" />
+                        </span>
+                     </f:link.action>
+                     <p class="helper-text">
+                        <f:translate key="{lang}help.smart_sync" />
+                     </p>
+                  </div>
+               </f:else>
+            </f:if>
+         </f:then>
+         <f:else>
+            <div class="empty-state-container">
+               <div class="empty-state-glass">
+                  <div class="icon-pulse-wrapper">
+                     <svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                     </svg>
+                  </div>
+                  <h3>
+                     <f:translate key="{lang}dashboard.select_page_title" />
+                  </h3>
+                  <p>
+                     <f:translate key="{lang}dashboard.select_page_text" />
+                  </p>
+                  <div class="hint-badge">
+                     <span class="hint-dot"></span>
+                     <f:translate key="{lang}dashboard.select_page_bottomtext" />
+                  </div>
+               </div>
+            </div>
+         </f:else>
+      </f:if>
+   </div>
 </html>

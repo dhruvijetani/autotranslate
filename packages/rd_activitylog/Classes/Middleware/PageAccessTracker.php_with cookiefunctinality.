@@ -1,0 +1,102 @@
+<?php
+namespace RemoteDevs\RdActivitylog\Middleware;
+
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Http\Stream;
+
+class PageAccessTracker implements MiddlewareInterface {
+    
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface {
+        $response = $handler->handle($request);
+        
+        // 1. Only target Frontend requests
+        // If there is no routing attribute, it is likely a backend or system request.
+        if ($request->getAttribute('routing') === null) {
+            return $response;
+        }
+
+        $cookies = $request->getCookieParams();
+        $pageId = (int)($request->getAttribute('routing')?->getPageId() ?? 0);
+
+        // 2. If Page exists and Consent Cookie is missing, inject the banner
+        if ($pageId > 0 && !isset($cookies['rd_cookie_consent'])) {
+            $response = $this->injectCookieBanner($response);
+        }
+
+        // 3. Only Log Activity if the user has clicked "Accept"
+        if ($pageId > 0 && isset($cookies['rd_cookie_consent']) && $cookies['rd_cookie_consent'] === 'accepted') {
+            $this->logActivity($pageId);
+        }
+        
+        return $response;
+    }
+
+    private function logActivity(int $pageId): void {
+        if (session_status() === PHP_SESSION_NONE) { 
+            session_start(); 
+        }
+        
+        // Prevent double logging on refresh
+        if (!isset($_SESSION['rd_last_pid']) || $_SESSION['rd_last_pid'] !== $pageId) {
+            $os = $this->detectOS($_SERVER['HTTP_USER_AGENT'] ?? '');
+            GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getConnectionForTable('tx_rdactivitylog_domain_model_log')
+                ->insert('tx_rdactivitylog_domain_model_log', [
+                    'page_uid' => $pageId,
+                    'action_type' => 'view',
+                    'user_os' => $os,
+                    'tstamp' => time()
+                ]);
+            $_SESSION['rd_last_pid'] = $pageId;
+        }
+    }
+
+    private function injectCookieBanner(ResponseInterface $response): ResponseInterface {
+        $content = (string)$response->getBody();
+        
+        // The Banner HTML and JS
+        $bannerHtml = '
+        <div id="rd-cookie-banner" style="position: fixed; bottom: 0; left: 0; width: 100%; background: #222; color: #fff; padding: 20px; z-index: 99999; box-shadow: 0 -2px 10px rgba(0,0,0,0.5); font-family: sans-serif; display: flex; justify-content: center; align-items: center; gap: 20px;">
+            <p style="margin: 0; font-size: 14px;">We use cookies to improve your experience and analyze traffic. Do you agree to our statistical tracking?</p>
+            <div style="display: flex; gap: 10px;">
+                <button id="rd-accept" style="background: #28a745; color: white; border: none; padding: 8px 20px; border-radius: 4px; cursor: pointer; font-weight: bold;">Accept</button>
+                <button id="rd-decline" style="background: #666; color: white; border: none; padding: 8px 20px; border-radius: 4px; cursor: pointer;">Decline</button>
+            </div>
+        </div>
+        <script>
+            (function() {
+                const setConsent = (status) => {
+                    const d = new Date();
+                    d.setTime(d.getTime() + (30*24*60*60*1000));
+                    document.cookie = "rd_cookie_consent=" + status + ";expires=" + d.toUTCString() + ";path=/;SameSite=Lax";
+                    document.getElementById("rd-cookie-banner").remove();
+                    if(status === "accepted") location.reload();
+                };
+                document.getElementById("rd-accept").onclick = () => setConsent("accepted");
+                document.getElementById("rd-decline").onclick = () => setConsent("declined");
+            })();
+        </script>';
+
+        // Insert before </body> tag
+        $content = str_ireplace('</body>', $bannerHtml . '</body>', $content);
+        
+        // Re-wrap the content into the response body stream
+        $body = new Stream('php://temp', 'rw');
+        $body->write($content);
+        return $response->withBody($body);
+    }
+
+    private function detectOS(string $ua): string {
+        if (preg_match('/iphone|ipad|ipod/i', $ua)) return 'iOS';
+        if (preg_match('/android/i', $ua)) return 'Android';
+        if (preg_match('/linux/i', $ua)) return 'Linux';
+        if (preg_match('/macintosh|mac os x/i', $ua)) return 'Mac OS';
+        if (preg_match('/windows|win32/i', $ua)) return 'Windows';
+        return 'Unknown';
+    }
+}

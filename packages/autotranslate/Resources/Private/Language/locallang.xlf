@@ -58,6 +58,52 @@
 			<trans-unit id="index.btn_translate" resname="index.btn_translate">
 				<source>Start Page Translation</source>
 			</trans-unit>
+
+			<trans-unit id="overlay.translating" resname="overlay.translating">
+                <source>Translating Content...</source>
+            </trans-unit>
+            <trans-unit id="overlay.wait_message" resname="overlay.wait_message">
+                <source>Please wait, all fields are being mirrored.</source>
+            </trans-unit>
+
+            <trans-unit id="dashboard.title" resname="dashboard.title">
+                <source>Auto Translate Dashboard</source>
+            </trans-unit>
+            <trans-unit id="dashboard.select_page_title" resname="dashboard.select_page_title">
+                <source>Select a Page</source>
+            </trans-unit>
+            <trans-unit id="dashboard.select_page_text" resname="dashboard.select_page_text">
+                <source>Please select a page from the tree to start translating.</source>
+            </trans-unit>
+			<trans-unit id="dashboard.select_page_bottomtext" resname="dashboard.select_page_bottomtext">
+                <source>Waiting for selection...</source>
+            </trans-unit>
+			
+
+            <trans-unit id="success.title" resname="success.title">
+                <source>Translation Complete</source>
+            </trans-unit>
+            <trans-unit id="success.message" resname="success.message">
+                <source>Your page content, including all subheaders and custom fields, has been translated successfully.</source>
+            </trans-unit>
+            <trans-unit id="success.button_return" resname="success.button_return">
+                <source>Return to Overview</source>
+            </trans-unit>
+
+            <trans-unit id="card.languages_title" resname="card.languages_title">
+                <source>Target Languages</source>
+            </trans-unit>
+            <trans-unit id="card.content_elements_title" resname="card.content_elements_title">
+                <source>Original Content Elements</source>
+            </trans-unit>
+
+            <trans-unit id="button.start_translation" resname="button.start_translation">
+                <source>Start Translation Now</source>
+            </trans-unit>
+            <trans-unit id="help.smart_sync" resname="help.smart_sync">
+                <source>Smart Sync: Only new content will be translated. Existing records are safely preserved.</source>
+            </trans-unit>
+			
 		</body>
 	</file>
 </xliff>

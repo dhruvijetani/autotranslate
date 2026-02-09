@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="de" datatype="plaintext" original="EXT:rd_activitylog/Resources/Private/Language/locallang.xlf" date="2026-02-02T08:51:16Z" product-name="rd_activitylog">
+		<header/>
+		<body>
+			<trans-unit id="tx_rdactivitylog_domain_model_log" resname="tx_rdactivitylog_domain_model_log">
+				<source>Log</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.description" resname="tx_rdactivitylog_domain_model_log.description">
+				<source>Log</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.page_uid" resname="tx_rdactivitylog_domain_model_log.page_uid">
+				<source>Page Uid</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.page_uid.description" resname="tx_rdactivitylog_domain_model_log.page_uid.description">
+				<source>Page Uid</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.be_user" resname="tx_rdactivitylog_domain_model_log.be_user">
+				<source>Be User</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.be_user.description" resname="tx_rdactivitylog_domain_model_log.be_user.description">
+				<source>Be User</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.action_type" resname="tx_rdactivitylog_domain_model_log.action_type">
+				<source>Action Type</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.action_type.description" resname="tx_rdactivitylog_domain_model_log.action_type.description">
+				<source>Action Type</source>
+			</trans-unit>
+
+			<trans-unit id="mlang_tabs_tab" xml:space="preserve">
+                <source>Activity Insight</source>
+            </trans-unit>
+
+			<!-- dashboard titles -->
+
+			<trans-unit id="tabs.insights">
+				<source>Page Insights</source>
+			</trans-unit>
+            <trans-unit id="tabs.backend">
+				<source>Backend Activity</source>
+			</trans-unit>
+            <trans-unit id="tabs.eco">
+				<source>Eco Audit</source>
+			</trans-unit>
+            <trans-unit id="tabs.activitylog">
+				<source>User Activity</source>
+			</trans-unit>
+
+            <trans-unit id="headers.visitor_analytics">
+				<source>Visitor Analytics</source>
+			</trans-unit>
+            <trans-unit id="headers.activity_log">
+				<source>Activity Log</source>
+			</trans-unit>
+            <trans-unit id="headers.performance_seo">
+				<source>Website Performance &amp; SEO Insights</source>
+			</trans-unit>
+            <trans-unit id="headers.security_monitoring">
+				<source>Security Session Monitoring</source>
+			</trans-unit>
+
+            <trans-unit id="table.timestamp">
+				<source>Timestamp</source>
+			</trans-unit>
+            <trans-unit id="table.user_details">
+				<source>User Details</source>
+			</trans-unit>
+            <trans-unit id="table.action">
+				<source>Action</source>
+			</trans-unit>
+            <trans-unit id="table.target_page">
+				<source>Target Page</source>
+			</trans-unit>
+            <trans-unit id="table.browser">
+				<source>Browser Details</source>
+			</trans-unit>
+            <trans-unit id="table.last_seen">
+				<source>Last Seen</source>
+			</trans-unit>
+            <trans-unit id="table.status">
+				<source>Status</source>
+			</trans-unit>
+
+            <trans-unit id="buttons.all_time">
+				<source>All Time</source>
+			</trans-unit>
+            <trans-unit id="buttons.today">
+				<source>Today</source>
+			</trans-unit>
+            <trans-unit id="buttons.last_7_days">
+				<source>Last 7 Days</source>
+			</trans-unit>
+            <trans-unit id="buttons.last_30_days">
+				<source>Last 30 Days</source>
+			</trans-unit>
+            <trans-unit id="buttons.clear_logs">
+				<source>Clear All Logs</source>
+			</trans-unit>
+
+            <trans-unit id="status.compromised">
+				<source>⚠️ Compromised</source>
+			</trans-unit>
+            <trans-unit id="status.active">
+				<source>● Active</source>
+			</trans-unit>
+            <trans-unit id="status.offline">
+				<source>Offline</source>
+			</trans-unit>
+
+            <trans-unit id="modal.title">
+				<source>Wipe History?</source>
+			</trans-unit>
+            <trans-unit id="modal.text">
+				<source>This will permanently delete all tracking logs. You cannot undo this action.</source>
+			</trans-unit>
+            <trans-unit id="modal.back">
+				<source>Go Back</source>
+			</trans-unit>
+            <trans-unit id="modal.confirm">
+				<source>Confirm Flush</source>
+			</trans-unit>
+
+			<trans-unit id="stats.osDistribution">
+				<source>OS Distribution</source>
+			</trans-unit>
+
+			<trans-unit id="label.pid">
+				<source>PID</source>
+			</trans-unit>
+
+			<trans-unit id="label.totalViews">
+				<source>Total Views</source>
+			</trans-unit>
+
+			<trans-unit id="label.totalPayload">
+				<source>Total Payload</source>
+			</trans-unit>
+
+			<trans-unit id="label.uid">
+				<source>UID</source>
+			</trans-unit>
+
+			<trans-unit id="table.user">
+				<source>User</source>
+			</trans-unit>
+
+			<trans-unit id="tip.performance">
+				<source>Performance Tip</source>
+			</trans-unit>
+
+			<trans-unit id="tip.seo">
+				<source>SEO Tip</source>
+			</trans-unit>
+
+			<trans-unit id="tip.compressImages">
+				<source>Compress images (WebP/AVIF). Large images slow down your page speed.</source>
+			</trans-unit>
+
+			<trans-unit id="tip.minifyAssets">
+				<source>Minify CSS &amp; JS files to reduce load time.</source>
+			</trans-unit>
+
+			<trans-unit id="tip.browserCaching">
+				<source>Enable browser caching to load repeat visits faster.</source>
+			</trans-unit>
+
+			<trans-unit id="tip.lazyLoading">
+				<source>Use lazy-loading for images and iframes.</source>
+			</trans-unit>
+
+			<trans-unit id="tip.metaTags">
+				<source>Add proper meta title &amp; description for every page.</source>
+			</trans-unit>
+
+			<trans-unit id="tip.headingStructure">
+				<source>Use H1 only once per page and structure headings properly.</source>
+			</trans-unit>
+
+			<trans-unit id="tip.internalLinking">
+				<source>Optimize internal linking to help search engines crawl better.</source>
+			</trans-unit>
+
+			<trans-unit id="tip.removeUnusedAssets">
+				<source>Remove unused CSS &amp; JS to reduce page weight.</source>
+			</trans-unit>
+
+			<trans-unit id="tip.useCdn">
+				<source>Use a CDN to serve assets faster globally.</source>
+			</trans-unit>
+			<trans-unit id="tip.mobileFriendly">
+				<source>Make sure your site is mobile-friendly and responsive.</source>
+			</trans-unit>
+
+			<trans-unit id="unit.mb">
+				<source>MB</source>
+			</trans-unit>
+			<trans-unit id="label.files">
+				<source>Files</source>
+			</trans-unit>
+			<trans-unit id="table.user">
+				<source>User</source>
+			</trans-unit>
+			<trans-unit id="label.uid">
+				<source>UID</source>
+			</trans-unit>
+
+
+		</body>
+	</file>
+</xliff>

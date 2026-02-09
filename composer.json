@@ -17,6 +17,7 @@
 		"georgringer/news": "^14.0",
 		"nhovratov/mask-to-content-blocks": "^1.0",
 		"rd/autotranslate": "@dev",
+		"remotedevs/rd-activitylog": "@dev",
 		"remotedevs/rd-faq": "@dev",
 		"rvx/sitepackage": "@dev",
 		"typo3/cms-backend": "^13.4",
