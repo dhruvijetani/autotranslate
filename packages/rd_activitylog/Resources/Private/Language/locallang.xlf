@@ -32,8 +32,6 @@
                 <source>Activity Insight</source>
             </trans-unit>
 
-			<!-- dashboard titles -->
-
 			<trans-unit id="tabs.insights">
 				<source>Page Insights</source>
 			</trans-unit>

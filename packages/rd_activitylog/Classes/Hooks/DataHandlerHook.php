@@ -4,32 +4,47 @@ namespace RemoteDevs\RdActivitylog\Hooks;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+/**
+ * This file is part of the "RD ActivityLog" Extension for TYPO3 CMS.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * (c) 2026 Jetani Dhruvi <dhruvi.remotedevs@gmail.com>, RemoteDevs Infotech
+ */
+
 class DataHandlerHook {
     protected static $processedIds = [];
 
     /**
-     * Handles CREATED and UPDATED actions
+     * Called after database operations (create/update).
+     *
+     * @param string $status  'new' or 'update'
+     * @param string $table   Affected table name
+     * @param mixed  $id      Record UID or NEW... placeholder
+     * @param array  $fieldArray Changed fields
+     * @param object $pObj    DataHandler instance
      */
     public function processDatamap_afterDatabaseOperations($status, $table, $id, array $fieldArray, &$pObj): void {
-        // 1. Only monitor specific tables
         if (!in_array($table, ['tt_content', 'pages'])) {
             return;
         }
-
-        // 2. CRITICAL FIX: If fieldArray is empty, no actual fields were changed.
-        // This prevents logging every element on the page during a global save
         if (empty($fieldArray)) {
             return;
         }
-
-        // 3. Get real ID for new records
         $realId = ($status === 'new' && isset($pObj->substNEWwithIDs[$id])) ? $pObj->substNEWwithIDs[$id] : $id;
         
         $this->logAction($table, $realId, ($status === 'new' ? 'CREATED' : 'UPDATED'));
     }
 
     /**
-     * Handles DELETED actions
+     * Called after command map operations (e.g. delete).
+     *
+     * @param string $command Command name (e.g. 'delete')
+     * @param string $table   Affected table name
+     * @param mixed  $id      Record UID
+     * @param mixed  $value   Command value
+     * @param object $pObj    DataHandler instance
      */
     public function processCmdmap_postProcess($command, $table, $id, $value, &$pObj): void {
         if ($command === 'delete' && in_array($table, ['tt_content', 'pages'])) {
@@ -38,10 +53,13 @@ class DataHandlerHook {
     }
 
     /**
-     * Shared logic to save the log entry
+     * Writes a backend activity log entry.
+     *
+     * @param string $table      Affected table
+     * @param mixed  $id         Record UID
+     * @param string $actionType Action label (CREATED/UPDATED/DELETED)
      */
     private function logAction(string $table, $id, string $actionType): void {
-        // Prevent duplicate logging within the same request cycle
         $uniqueKey = $actionType . '_' . $table . '_' . $id;
         if (isset(self::$processedIds[$uniqueKey])) {
             return;
@@ -56,7 +74,6 @@ class DataHandlerHook {
             $targetPageUid = (int)$id;
             $detail = "Page (UID: $id)";
         } else {
-            // Find the parent page (pid) for content elements
             $queryBuilder = $dbPool->getQueryBuilderForTable('tt_content');
             $queryBuilder->getRestrictions()->removeAll(); 
             
@@ -70,14 +87,13 @@ class DataHandlerHook {
             $targetPageUid = (int)($row['pid'] ?? 0);
             $detail = "Content Element (UID: $id)";
         }
-
         if ($targetPageUid > 0) {
             self::$processedIds[$uniqueKey] = true;
             $dbPool->getConnectionForTable('tx_rdactivitylog_domain_model_backendlog')
                 ->insert('tx_rdactivitylog_domain_model_backendlog', [
                     'page_uid' => $targetPageUid,
                     'action_type' => $actionType,
-                    'user_os' => "User: $userName | $detail",
+                    'user_info' => "User: $userName | $detail",
                     'tstamp' => time()
                 ]);
         }

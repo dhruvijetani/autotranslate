@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
         insights: { btn: 'btn-insights', content: 'tab-insights', init: initOSCharts },
         backend: { btn: 'btn-backend', content: 'tab-backend', init: null },
         eco: { btn: 'btn-eco', content: 'tab-eco', init: initGlobalChart },
-        activitylog: { btn: 'btn-activitylog', content: 'tab-activitylog', init: null } // ✅ NEW
+        activitylog: { btn: 'btn-activitylog', content: 'tab-activitylog', init: null } 
     };
 
     function switchTab(activeType) {
@@ -14,24 +14,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (element) element.style.display = isMatch ? 'block' : 'none';
             if (button) button.classList.toggle('active', isMatch);
-
-            // Trigger initialization if the tab has an init function
             if (isMatch && tabs[type].init) {
                 setTimeout(tabs[type].init, 150);
             }
         });
     }
 
-    // Attach listeners
     Object.keys(tabs).forEach(type => {
         document.getElementById(tabs[type].btn)?.addEventListener('click', () => switchTab(type));
     });
 
-    // Default load
     switchTab('insights');
 });
-
-// global chart initialization
 let globalChartInstance = null;
 function initGlobalChart() {
     const canvas = document.getElementById('globalPayloadChart');
@@ -79,8 +73,6 @@ function initGlobalChart() {
         }
     });
 }
-
-// page view card chart
 let osChartsInitialized = false;
 function initOSCharts() {
 
@@ -132,8 +124,6 @@ function initOSCharts() {
 
     osChartsInitialized = true;
 }
-
-// popup js
 document.addEventListener('DOMContentLoaded', function() {
     const flushBtn = document.getElementById('flush-log-btn');
     const modalOverlay = document.getElementById('custom-alert-overlay');
@@ -141,38 +131,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const confirmBtn = document.getElementById('alert-confirm');
 
     if (flushBtn && modalOverlay) {
-        // 1. When clicking the "Clear All" link
         flushBtn.addEventListener('click', function(event) {
-            event.preventDefault(); // Stop the link from redirecting
-            modalOverlay.style.display = 'flex'; // Show our HTML popup
+            event.preventDefault(); 
+            modalOverlay.style.display = 'flex'; 
         });
 
-        // 2. When clicking "Cancel"
         cancelBtn.addEventListener('click', function() {
-            modalOverlay.style.display = 'none'; // Hide the popup
+            modalOverlay.style.display = 'none'; 
         });
 
-        // 3. When clicking "Yes, Clear All"
         confirmBtn.addEventListener('click', function() {
             const targetUrl = flushBtn.getAttribute('href');
-            window.location.href = targetUrl; // Now perform the redirect
+            window.location.href = targetUrl; 
         });
     }
 });
-
-//filter js
 document.addEventListener('DOMContentLoaded', function () {
     const filterButtons = document.querySelectorAll('.btn-filter');
     const rows = document.querySelectorAll('.log-row');
 
     filterButtons.forEach(btn => {
         btn.addEventListener('click', function() {
-            // Update UI
             filterButtons.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
 
             const range = this.dataset.range;
-            // Get current time in seconds (TYPO3 style)
             const now = Math.floor(Date.now() / 1000); 
             let cutoff = 0;
 
@@ -185,16 +168,15 @@ document.addEventListener('DOMContentLoaded', function () {
             } else if (range === '30') {
                 cutoff = now - (30 * 24 * 60 * 60);
             } else {
-                cutoff = 0; // Show everything
+                cutoff = 0; 
             }
             rows.forEach(row => {
-                // Get the timestamp we stored in the data-tstamp attribute
                 const rowTime = parseInt(row.getAttribute('data-tstamp'));
 
                 if (range === 'all' || rowTime >= cutoff) {
-                    row.style.display = ''; // Show row
+                    row.style.display = ''; 
                 } else {
-                    row.style.display = 'none'; // Hide row
+                    row.style.display = 'none'; 
                 }
             });
         });

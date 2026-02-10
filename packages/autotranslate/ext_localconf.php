@@ -18,13 +18,11 @@ defined('TYPO3') || die();
         [
             \RD\Autotranslate\Controller\AutotranslateController::class => 'index, list, show, new, create, edit, update, delete'
         ],
-        // non-cacheable actions
         [
             \RD\Autotranslate\Controller\AutotranslateController::class => 'create, update, delete'
         ]
     );
 
-    // wizards
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
         'mod {
             wizards.newContentElement.wizardItems.plugins {

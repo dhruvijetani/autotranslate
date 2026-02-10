@@ -6,18 +6,15 @@ CREATE TABLE tx_rdactivitylog_domain_model_log (
 	details text,
 );
 
-
 CREATE TABLE tx_rdactivitylog_domain_model_backendlog (
     uid int(11) NOT NULL auto_increment,
     page_uid int(11) DEFAULT '0' NOT NULL,
     action_type varchar(255) DEFAULT '' NOT NULL,
-    user_os varchar(255) DEFAULT '' NOT NULL,
+    user_info varchar(255) DEFAULT '' NOT NULL,
     tstamp int(11) DEFAULT '0' NOT NULL,
     session_id text,
     PRIMARY KEY (uid)
 );
-
-
 
 CREATE TABLE tx_rdactivitylog_domain_model_sessions (
     user_uid int(11) NOT NULL DEFAULT '0',

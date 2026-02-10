@@ -1,8 +1,14 @@
 {
     "name": "remotedevs/rd-activitylog",
     "type": "typo3-cms-extension",
-    "description": "",
-    "authors": [],
+    "description": "A high-performance activity logger and analytics dashboard. Monitors backend activities, tracks visitor stats with charts, audits SEO/Performance (ECO), and monitors session security.",   
+    "authors": [
+        {
+            "name": "Dhruvi Jetani",
+            "email": "dhruvi.remotedevs@gmail.com",
+            "role": "Developer"
+        }
+    ],
     "license": "GPL-2.0-or-later",
     "require": {
         "typo3/cms-core": "^13.4"

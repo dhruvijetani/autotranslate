@@ -40,6 +40,31 @@
 				<source>Details</source>
 			</trans-unit>
 
+			<trans-unit id="tx_rdactivitylog_domain_model_log">
+				<source>Activity Log / Page Views</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.page_uid">
+				<source>Target Page ID</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.be_user">
+				<source>Backend User ID</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.action_type">
+				<source>Action (View / Created / Updated)</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.user_info">
+				<source>User Info / OS</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.details">
+				<source>Details</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.tstamp">
+				<source>Timestamp</source>
+			</trans-unit>
+			<trans-unit id="tx_rdactivitylog_domain_model_log.session_id">
+				<source>Session ID</source>
+			</trans-unit>
+
 			
 
 			

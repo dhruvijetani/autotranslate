@@ -1,353 +1,386 @@
-
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-
-    <script src="{f:uri.resource(path: 'Js/Tab.js', extensionName: 'rd_activitylog')}"></script>
-    <link rel="stylesheet" href="{f:uri.resource(path: 'Css/Backend.css', extensionName: 'rd_activitylog')}" />
-    <script src="{f:uri.resource(path: 'Js/Chart.js', extensionName: 'rd_activitylog')}"></script>
-    <f:variable name="lang">LLL:EXT:rd_activitylog/Resources/Private/Language/locallang.xlf:</f:variable>
-
-    <div class="rd-dashboard">
-
-        <div class="tab-container">
-            <button id="btn-insights" class="btn-tab active">
-                                <svg class="icon" viewBox="0 0 24 24"><path d="M3 3v18h18v-2H5V3H3zm4 12h2v4H7v-4zm4-6h2v10h-2V9zm4 3h2v7h-2v-7z"/></svg>
- <f:translate key="tabs.insights" />
-                <!-- Page Insights -->
-            </button>
-            <button id="btn-backend" class="btn-tab">
-                                <svg class="icon" viewBox="0 0 24 24"><path d="M13 3a9 9 0 1 0 8.95 10h-2.02a7 7 0 1 1-6.93-8v3l4-4-4-4v3z"/></svg>
- <f:translate key="tabs.backend" />
-                <!-- Backend Activity -->
-            </button>
-             <button id="btn-eco" class="btn-tab">
-   <svg class="icon" style="margin-right:14px" viewBox="0 0 24 24" fill="currentColor">
-  <path d="M12 2l8 4v6c0 5-3.5 9.7-8 10-4.5-.3-8-5-8-10V6l8-4zm-1 12l5-5-1.4-1.4L11 11.2 9.4 9.6 8 11l3 3z"/>
-</svg>
-
-
-
- <f:translate key="tabs.eco" />
-                <!-- Eco Audit -->
-            </button>
-            <button id="btn-activitylog" class="btn-tab">
-<svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-  <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
-</svg>
-
-<f:translate key="tabs.activitylog" />
-                <!-- User Activity -->
-            </button>
-
-        </div>
-
-        <div id="tab-insights" class="tab-content">
+   <script src="{f:uri.resource(path: 'Js/Tab.js', extensionName: 'rd_activitylog')}"></script>
+   <link rel="stylesheet" href="{f:uri.resource(path: 'Css/Backend.css', extensionName: 'rd_activitylog')}" />
+   <script src="{f:uri.resource(path: 'Js/Chart.js', extensionName: 'rd_activitylog')}"></script>
+   <f:variable name="lang">LLL:EXT:rd_activitylog/Resources/Private/Language/locallang.xlf:</f:variable>
+   <div class="rd-dashboard">
+      <div class="tab-container">
+         <button id="btn-insights" class="btn-tab active">
+            <svg class="icon" viewBox="0 0 24 24">
+               <path d="M3 3v18h18v-2H5V3H3zm4 12h2v4H7v-4zm4-6h2v10h-2V9zm4 3h2v7h-2v-7z"/>
+            </svg>
+            <f:translate key="tabs.insights" />
+         </button>
+         <button id="btn-backend" class="btn-tab">
+            <svg class="icon" viewBox="0 0 24 24">
+               <path d="M13 3a9 9 0 1 0 8.95 10h-2.02a7 7 0 1 1-6.93-8v3l4-4-4-4v3z"/>
+            </svg>
+            <f:translate key="tabs.backend" />
+         </button>
+         <button id="btn-eco" class="btn-tab">
+            <svg class="icon" style="margin-right:14px" viewBox="0 0 24 24" fill="currentColor">
+               <path d="M12 2l8 4v6c0 5-3.5 9.7-8 10-4.5-.3-8-5-8-10V6l8-4zm-1 12l5-5-1.4-1.4L11 11.2 9.4 9.6 8 11l3 3z"/>
+            </svg>
+            <f:translate key="tabs.eco" />
+         </button>
+         <button id="btn-activitylog" class="btn-tab">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+               <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
+            </svg>
+            <f:translate key="tabs.activitylog" />
+         </button>
+      </div>
+      <div id="tab-insights" class="tab-content">
+         <h2 class="section-title">
+            <f:translate key="headers.visitor_analytics" />
+         </h2>
+         <div class="analytics-grid">
+            <f:for each="{pageStats}" as="data" key="pid">
+               <div class="stat-card">
+                  <div class="card-top">
+                     <div class="page-info">
+                        <span class="pid-badge">
+                           <f:translate key="label.pid" />
+                           {pid}
+                        </span>
+                        <h3 class="page-name">{data.title}</h3>
+                     </div>
+                     <div class="view-count">
+                        <span class="number">{data.total}</span>
+                        <span class="label">
+                           <f:translate key="label.totalViews" />
+                        </span>
+                     </div>
+                  </div>
+                  <div class="card-bottom">
+                     <p class="sub-title">
+                        <f:translate key="stats.osDistribution" />
+                     </p>
+                     <div class="os-chart-wrap">
+                        <canvas
+                           id="osChart-{pid}"
+                           class="os-chart"
+                           data-os='{data.os -> f:format.json()}'>
+                        </canvas>
+                     </div>
+                  </div>
+               </div>
+            </f:for>
+         </div>
+      </div>
+      <div id="tab-backend" class="tab-content" style="display: none;">
+         <div class="section-header">
             <h2 class="section-title">
-                <f:translate key="headers.visitor_analytics" />
-                <!-- Visitor Analytics -->
+               <f:translate key="headers.activity_log" />
             </h2>
-            <div class="analytics-grid">
-                <f:for each="{pageStats}" as="data" key="pid">
-                    <div class="stat-card">
-                        <div class="card-top">
-                            <div class="page-info">
-                                <span class="pid-badge"><f:translate key="label.pid" />
-                                    <!-- PID:  -->
-                                    {pid}</span>
-                                <h3 class="page-name">{data.title}</h3>
-                            </div>
-                            <div class="view-count">
-                                <span class="number">{data.total}</span>
-                                <span class="label"><f:translate key="label.totalViews" />
-                                    <!-- Total Views -->
-                                </span>
-                            </div>
-                        </div>
-                        <div class="card-bottom">
-                        <p class="sub-title"><f:translate key="stats.osDistribution" />
-                            <!-- OS Distribution -->
-                        </p>
-
-                        <div class="os-chart-wrap">
-                            <canvas
-                                id="osChart-{pid}"
-                                class="os-chart"
-                                data-os='{data.os -> f:format.json()}'>
-                            </canvas>
-                        </div>
-                    </div>
-
-                    </div>
-                </f:for>
-            </div>
-        </div>
-
-        <div id="tab-backend" class="tab-content" style="display: none;">
-            <div class="section-header">
-                <h2 class="section-title">
-                    <f:translate key="headers.activity_log" />
-                    <!-- Activity Log -->
-                </h2>
-
             <div class="filter-group">
-                <button class="btn-filter active" data-range="all"><f:translate key="buttons.all_time" />
-                   <!-- All Time  -->
-                </button>
-                <button class="btn-filter" data-range="today"><f:translate key="buttons.today" />
-                    <!-- Today -->
-                </button>
-                <button class="btn-filter" data-range="7"><f:translate key="buttons.last_7_days" />
-                    <!-- Last 7 Days -->
-                </button>
-                <button class="btn-filter" data-range="30"><f:translate key="buttons.last_30_days" />
-                    <!-- Last 30 Days -->
-                </button>
+               <button class="btn-filter active" data-range="all">
+                  <f:translate key="buttons.all_time" />
+               </button>
+               <button class="btn-filter" data-range="today">
+                  <f:translate key="buttons.today" />
+               </button>
+               <button class="btn-filter" data-range="7">
+                  <f:translate key="buttons.last_7_days" />
+               </button>
+               <button class="btn-filter" data-range="30">
+                  <f:translate key="buttons.last_30_days" />
+               </button>
             </div>
-
-                
-                <f:link.action action="flush" id="flush-log-btn" class="btn-clear">
-                               <svg class="icon" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm2 3h14l-1 12H6L5 9zm5-5h4v2h-4V4z"/></svg>
-<f:translate key="buttons.clear_logs" />
-                     
-                    <!-- Clear All Logs -->
-                </f:link.action>
-            </div>
-
-            <div class="table-wrapper">
-                <table class="styled-table">
-                    <thead>
-                        <tr>
-                            <th>
-                                <f:translate key="table.timestamp" />
-                                <!-- Timestamp -->
-                            </th>
-                            <th><f:translate key="table.user_details" />
-                                <!-- User Details -->
-                            </th>
-                            <th><f:translate key="table.action" />
-                                <!-- Action -->
-                            </th>
-                            <th><f:translate key="table.target_page" />
-                                <!-- Target Page -->
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <f:for each="{backendActivity}" as="log">
-                            <tr class="log-row" data-tstamp="{log.tstamp}">
-                                <td class="col-date">{log.tstamp -> f:format.date(format: 'd-m-Y H:i:s')}</td>
-                                
-                                <td>
-                                    <strong>{log.display_user}</strong><br/>
-                                    <small>{log.display_item}</small>
-                                </td>
-                                
-                                <td>
-                                    <span class="badge status-{log.action_type -> f:format.case(mode: 'lower')}">
-                                        {log.action_type}
-                                    </span>
-                                </td>
-                                
-                                <td>
-                                    <div class="page-hover-box" title="Page UID : {log.page_uid}">
-                                           <svg class="icon page-icon" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V9h5.5L14 3.5z"/>
-    </svg>
-                                        <strong class="target-title">{log.page_title}</strong>
-                                    </div>
-                                </td>
-                            </tr>
-                        </f:for>
-                    </tbody>
-                </table>
-            </div>
-
-
-
-        </div>
-
-        <div id="tab-eco" class="tab-content" style="display: none;">
-            <h2 class="section-title"><f:translate key="headers.performance_seo" />
-                <!-- Website Performance & SEO Insights -->
-            </h2>
-            <div class="health-summary-box">
-                <div class="chart-container-large">
-                    <canvas id="globalPayloadChart" data-payload='{globalStats -> f:format.json()}'></canvas>
-                    <div class="chart-overlay">
-                        <span class="total-mb-display">0
-                            <f:translate key="unit.mb" /> 
-                            <!-- MB -->
-                        </span>
-                        <span class="sub-text"><f:translate key="label.totalPayload" />
-                            <!-- TOTAL PAYLOAD -->
-                        </span>
-                    </div>
-                </div>
-
-                <div class="stats-grid-new">
-                    <f:for each="{globalStats}" as="item" key="type">
-                        <div class="stat-card-mini" style="border-top: 3px solid {item.color}">
-                            <span class="s-label">{type}</span>
-                            <span class="s-value">{item.mb} <f:translate key="unit.mb" />
-                                <!-- MB -->
-                            </span>
-                            <span class="s-count">{item.count} <f:translate key="label.files" />
-                                <!-- Files -->
-                            </span>
-                        </div>
-                    </f:for>
-                </div>
-            </div>
-
-                <div class="seo-alert-box"> <svg class="icon" viewBox="0 0 24 24">
-            <path d="M13 2L3 14h7v8l10-12h-7z"/>
-        </svg>
-                <span><strong><f:translate key="tip.performance" />:</strong> <f:translate key="tip.compressImages" /></span></div>
-
-                <div class="seo-alert-box"> <svg class="icon" viewBox="0 0 24 24">
-            <path d="M13 2L3 14h7v8l10-12h-7z"/>
-        </svg>
-                <span><strong><f:translate key="tip.performance" />:</strong> <f:translate key="tip.minifyAssets" /></span></div>
-
-                <div class="seo-alert-box"> <svg class="icon" viewBox="0 0 24 24">
-            <path d="M13 2L3 14h7v8l10-12h-7z"/>
-        </svg>
-                <span><strong><f:translate key="tip.performance" />:</strong> <f:translate key="tip.browserCaching" /></span></div>
-
-                <div class="seo-alert-box"> <svg class="icon" viewBox="0 0 24 24">
-            <path d="M13 2L3 14h7v8l10-12h-7z"/>
-        </svg>
-                <span><strong><f:translate key="tip.performance" />:</strong> <f:translate key="tip.lazyLoading" /></span></div>
-
-                <div class="seo-alert-box"> <svg class="icon" viewBox="0 0 24 24">
-            <path d="M13 2L3 14h7v8l10-12h-7z"/>
-        </svg>
-                <span><strong><f:translate key="tip.seo" />:</strong> <f:translate key="tip.metaTags" /></span></div>
-
-                <div class="seo-alert-box"> <svg class="icon" viewBox="0 0 24 24">
-            <path d="M13 2L3 14h7v8l10-12h-7z"/>
-        </svg>
-                <span><strong><f:translate key="tip.seo" />:</strong><f:translate key="tip.headingStructure" /></span></div>
-
-                <div class="seo-alert-box"> <svg class="icon" viewBox="0 0 24 24">
-            <path d="M13 2L3 14h7v8l10-12h-7z"/>
-        </svg>
-                <span><strong><f:translate key="tip.seo" />:</strong> <f:translate key="tip.internalLinking" /></span></div>
-
-                <div class="seo-alert-box"> <svg class="icon" viewBox="0 0 24 24">
-            <path d="M13 2L3 14h7v8l10-12h-7z"/>
-        </svg>
-                <span><strong><f:translate key="tip.performance" />:</strong> <f:translate key="tip.removeUnusedAssets" /></span></div>
-
-                <div class="seo-alert-box"> <svg class="icon" viewBox="0 0 24 24">
-            <path d="M13 2L3 14h7v8l10-12h-7z"/>
-        </svg>
-                <span><strong><f:translate key="tip.performance" />:</strong> <f:translate key="tip.useCdn" /></span></div>
-
-                <div class="seo-alert-box"> <svg class="icon" viewBox="0 0 24 24">
-            <path d="M13 2L3 14h7v8l10-12h-7z"/>
-        </svg>
-                <span><strong><f:translate key="tip.seo" />:</strong> <f:translate key="tip.mobileFriendly" /></span></div>
-
-        </div>
-
-        <div id="tab-activitylog" class="tab-content" style="display:none;">
-            <h2 class="section-title"><f:translate key="headers.security_monitoring" />
-                <!-- Security Session Monitoring -->
-            </h2>
-
-            <table class="session-table">
-                <thead>
-                    <tr>
-                        <th><f:translate key="table.user" />
-                            <!-- User -->
-                        </th>
-                        <th><f:translate key="table.browser" />
-                            <!-- Browser Details -->
-                        </th>
-                        <th><f:translate key="table.last_seen" />
-                            <!-- Last Seen -->
-                        </th>
-                        <th><f:translate key="table.status" />
-                            <!-- Status -->
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <f:for each="{sessionLogs}" as="log">
-                        <tr class="{f:if(condition: log.is_compromised, then: 'row-compromised')}">
-                            <td>
-                                <strong>{log.username}</strong><br>
-                                <small class="uid-text">
-                                    <f:translate key="label.uid" />
-                                    <!-- UID:  -->
-                                    {log.user_uid}</small>
-                            </td>
-                            <td>
-                                <span class="os-label">{log.os}</span>
-                            </td>
-                            <td>
-                                <f:format.date format="d-m-Y H:i">{log.last_activity_time}</f:format.date>
-                            </td>
-                            <td>
-                                <f:if condition="{log.is_compromised}">
-                                    <f:then>
-                                        <span class="status-compromised"><f:translate key="status.compromised" />                                           
-                                            <!-- ⚠️ Compromised -->
-                                        </span>
-                                    </f:then>
-                                    <f:else>
-                                        <f:if condition="{log.is_online}">
-                                            <f:then><span class="status-active"><f:translate key="status.active" />                                      
-                                                <!-- ● Active -->
-                                            </span></f:then>
-                                            <f:else><span class="status-offline"><f:translate key="status.offline" />
-                                                <!-- Offline -->
-                                            </span></f:else>
-                                        </f:if>
-                                    </f:else>
-                                </f:if>
-                            </td>
-                        </tr>
-                    </f:for>
-                </tbody>
+            <f:link.action action="flush" id="flush-log-btn" class="btn-clear">
+               <svg class="icon" viewBox="0 0 24 24">
+                  <path d="M3 6h18v2H3V6zm2 3h14l-1 12H6L5 9zm5-5h4v2h-4V4z"/>
+               </svg>
+               <f:translate key="buttons.clear_logs" />
+            </f:link.action>
+         </div>
+         <div class="table-wrapper">
+            <table class="styled-table">
+               <thead>
+                  <tr>
+                     <th>
+                        <f:translate key="table.timestamp" />
+                     </th>
+                     <th>
+                        <f:translate key="table.user_details" />
+                     </th>
+                     <th>
+                        <f:translate key="table.action" />
+                     </th>
+                     <th>
+                        <f:translate key="table.target_page" />
+                     </th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <f:for each="{backendActivity}" as="log">
+                     <tr class="log-row" data-tstamp="{log.tstamp}">
+                        <td class="col-date">{log.tstamp -> f:format.date(format: 'd-m-Y H:i:s')}</td>
+                        <td>
+                           <strong>{log.display_user}</strong><br/>
+                           <small>{log.display_item}</small>
+                        </td>
+                        <td>
+                           <span class="badge status-{log.action_type -> f:format.case(mode: 'lower')}">
+                           {log.action_type}
+                           </span>
+                        </td>
+                        <td>
+                           <div class="page-hover-box" title="Page UID : {log.page_uid}">
+                              <svg class="icon page-icon" viewBox="0 0 24 24" fill="currentColor">
+                                 <path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V9h5.5L14 3.5z"/>
+                              </svg>
+                              <strong class="target-title">{log.page_title}</strong>
+                           </div>
+                        </td>
+                     </tr>
+                  </f:for>
+               </tbody>
             </table>
-
-        </div>
-
-    </div>
-
-    <div id="custom-alert-overlay" class="modal-overlay" style="display: none;">
-        <div class="modal-card">
-            <div class="modal-icon">
-                <svg class="icon modal-icon" viewBox="0 0 24 24" fill="currentColor">
-  <path d="M1 21h22L12 2 1 21zm12-3h-2v2h2v-2zm0-8h-2v6h2V10z"/>
-</svg>
-
+         </div>
+      </div>
+      <div id="tab-eco" class="tab-content" style="display: none;">
+         <h2 class="section-title">
+            <f:translate key="headers.performance_seo" />
+         </h2>
+         <div class="health-summary-box">
+            <div class="chart-container-large">
+               <canvas id="globalPayloadChart" data-payload='{globalStats -> f:format.json()}'></canvas>
+               <div class="chart-overlay">
+                  <span class="total-mb-display">
+                     0
+                     <f:translate key="unit.mb" />
+                  </span>
+                  <span class="sub-text">
+                     <f:translate key="label.totalPayload" />
+                  </span>
+               </div>
             </div>
-            <h2><f:translate key="modal.title" />
-                <!-- Wipe History? -->
-            </h2>
-            <p><f:translate key="modal.text" />
-                <!-- This will permanently delete all tracking logs. You cannot undo this action. -->
-            </p>
-            <div class="modal-actions">
-                <button id="alert-cancel" class="btn-modal btn-cancel"><f:translate key="modal.back" />
-                    <!-- Go Back -->
-                </button>
-                <button id="alert-confirm" class="btn-modal btn-confirm">
-                    <f:translate key="modal.confirm" />
-                    <!-- Confirm Flush -->
-                </button>
+            <div class="stats-grid-new">
+               <f:for each="{globalStats}" as="item" key="type">
+                  <div class="stat-card-mini" style="border-top: 3px solid {item.color}">
+                     <span class="s-label">{type}</span>
+                     <span class="s-value">
+                        {item.mb} 
+                        <f:translate key="unit.mb" />
+                     </span>
+                     <span class="s-count">
+                        {item.count} 
+                        <f:translate key="label.files" />
+                     </span>
+                  </div>
+               </f:for>
             </div>
-        </div>
-    </div>
-
-
-
-
-
-
-
-
+         </div>
+         <div class="seo-alert-box">
+            <svg class="icon" viewBox="0 0 24 24">
+               <path d="M13 2L3 14h7v8l10-12h-7z"/>
+            </svg>
+            <span>
+               <strong>
+                  <f:translate key="tip.performance" />
+                  :
+               </strong>
+               <f:translate key="tip.compressImages" />
+            </span>
+         </div>
+         <div class="seo-alert-box">
+            <svg class="icon" viewBox="0 0 24 24">
+               <path d="M13 2L3 14h7v8l10-12h-7z"/>
+            </svg>
+            <span>
+               <strong>
+                  <f:translate key="tip.performance" />
+                  :
+               </strong>
+               <f:translate key="tip.minifyAssets" />
+            </span>
+         </div>
+         <div class="seo-alert-box">
+            <svg class="icon" viewBox="0 0 24 24">
+               <path d="M13 2L3 14h7v8l10-12h-7z"/>
+            </svg>
+            <span>
+               <strong>
+                  <f:translate key="tip.performance" />
+                  :
+               </strong>
+               <f:translate key="tip.browserCaching" />
+            </span>
+         </div>
+         <div class="seo-alert-box">
+            <svg class="icon" viewBox="0 0 24 24">
+               <path d="M13 2L3 14h7v8l10-12h-7z"/>
+            </svg>
+            <span>
+               <strong>
+                  <f:translate key="tip.performance" />
+                  :
+               </strong>
+               <f:translate key="tip.lazyLoading" />
+            </span>
+         </div>
+         <div class="seo-alert-box">
+            <svg class="icon" viewBox="0 0 24 24">
+               <path d="M13 2L3 14h7v8l10-12h-7z"/>
+            </svg>
+            <span>
+               <strong>
+                  <f:translate key="tip.seo" />
+                  :
+               </strong>
+               <f:translate key="tip.metaTags" />
+            </span>
+         </div>
+         <div class="seo-alert-box">
+            <svg class="icon" viewBox="0 0 24 24">
+               <path d="M13 2L3 14h7v8l10-12h-7z"/>
+            </svg>
+            <span>
+               <strong>
+                  <f:translate key="tip.seo" />
+                  :
+               </strong>
+               <f:translate key="tip.headingStructure" />
+            </span>
+         </div>
+         <div class="seo-alert-box">
+            <svg class="icon" viewBox="0 0 24 24">
+               <path d="M13 2L3 14h7v8l10-12h-7z"/>
+            </svg>
+            <span>
+               <strong>
+                  <f:translate key="tip.seo" />
+                  :
+               </strong>
+               <f:translate key="tip.internalLinking" />
+            </span>
+         </div>
+         <div class="seo-alert-box">
+            <svg class="icon" viewBox="0 0 24 24">
+               <path d="M13 2L3 14h7v8l10-12h-7z"/>
+            </svg>
+            <span>
+               <strong>
+                  <f:translate key="tip.performance" />
+                  :
+               </strong>
+               <f:translate key="tip.removeUnusedAssets" />
+            </span>
+         </div>
+         <div class="seo-alert-box">
+            <svg class="icon" viewBox="0 0 24 24">
+               <path d="M13 2L3 14h7v8l10-12h-7z"/>
+            </svg>
+            <span>
+               <strong>
+                  <f:translate key="tip.performance" />
+                  :
+               </strong>
+               <f:translate key="tip.useCdn" />
+            </span>
+         </div>
+         <div class="seo-alert-box">
+            <svg class="icon" viewBox="0 0 24 24">
+               <path d="M13 2L3 14h7v8l10-12h-7z"/>
+            </svg>
+            <span>
+               <strong>
+                  <f:translate key="tip.seo" />
+                  :
+               </strong>
+               <f:translate key="tip.mobileFriendly" />
+            </span>
+         </div>
+      </div>
+      <div id="tab-activitylog" class="tab-content" style="display:none;">
+         <h2 class="section-title">
+            <f:translate key="headers.security_monitoring" />
+         </h2>
+         <table class="session-table">
+            <thead>
+               <tr>
+                  <th>
+                     <f:translate key="table.user" />
+                  </th>
+                  <th>
+                     <f:translate key="table.browser" />
+                  </th>
+                  <th>
+                     <f:translate key="table.last_seen" />
+                  </th>
+                  <th>
+                     <f:translate key="table.status" />
+                  </th>
+               </tr>
+            </thead>
+            <tbody>
+               <f:for each="{sessionLogs}" as="log">
+                  <tr class="{f:if(condition: log.is_compromised, then: 'row-compromised')}">
+                     <td>
+                        <strong>{log.username}</strong><br>
+                        <small class="uid-text">
+                           <f:translate key="label.uid" />
+                           {log.user_uid}
+                        </small>
+                     </td>
+                     <td>
+                        <span class="os-label">{log.os}</span>
+                     </td>
+                     <td>
+                        <f:format.date format="d-m-Y H:i">{log.last_activity_time}</f:format.date>
+                     </td>
+                     <td>
+                        <f:if condition="{log.is_compromised}">
+                           <f:then>
+                              <span class="status-compromised">
+                                 <f:translate key="status.compromised" />
+                              </span>
+                           </f:then>
+                           <f:else>
+                              <f:if condition="{log.is_online}">
+                                 <f:then>
+                                    <span class="status-active">
+                                       <f:translate key="status.active" />
+                                    </span>
+                                 </f:then>
+                                 <f:else>
+                                    <span class="status-offline">
+                                       <f:translate key="status.offline" />
+                                    </span>
+                                 </f:else>
+                              </f:if>
+                           </f:else>
+                        </f:if>
+                     </td>
+                  </tr>
+               </f:for>
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <div id="custom-alert-overlay" class="modal-overlay" style="display: none;">
+      <div class="modal-card">
+         <div class="modal-icon">
+            <svg class="icon modal-icon" viewBox="0 0 24 24" fill="currentColor">
+               <path d="M1 21h22L12 2 1 21zm12-3h-2v2h2v-2zm0-8h-2v6h2V10z"/>
+            </svg>
+         </div>
+         <h2>
+            <f:translate key="modal.title" />
+         </h2>
+         <p>
+            <f:translate key="modal.text" />
+         </p>
+         <div class="modal-actions">
+            <button id="alert-cancel" class="btn-modal btn-cancel">
+               <f:translate key="modal.back" />
+            </button>
+            <button id="alert-confirm" class="btn-modal btn-confirm">
+               <f:translate key="modal.confirm" />
+            </button>
+         </div>
+      </div>
+   </div>
 </html>
 

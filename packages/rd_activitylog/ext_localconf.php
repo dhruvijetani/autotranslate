@@ -2,24 +2,19 @@
 defined('TYPO3') or die();
 
 /**
- * Register DataHandler Hook to track Backend Content Edits
+ * This file is part of the "RD ActivityLog" Extension for TYPO3 CMS.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * (c) 2026 Jetani Dhruvi <dhruvi.remotedevs@gmail.com>, RemoteDevs Infotech
  */
+
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 
     \RemoteDevs\RdActivitylog\Hooks\DataHandlerHook::class;
 
-/**
- * Register custom Fluid Namespace 'rd'
- */
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['rd'][] = 'RemoteDevs\\RdActivitylog\\ViewHelpers';
 
-/**
- * Note: If you have additional configurations like IconRegistry or 
- * CommandControllers, they should also be placed here.
- */
-
-
-
-// NEW Hook for Delete/Move commands
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] = 
     \RemoteDevs\RdActivitylog\Hooks\DataHandlerHook::class;
 

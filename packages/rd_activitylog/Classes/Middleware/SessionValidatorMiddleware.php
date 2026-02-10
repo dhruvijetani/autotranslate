@@ -8,13 +8,27 @@ use Psr\Http\Server\RequestHandlerInterface;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+/**
+ * This file is part of the "RD ActivityLog" Extension for TYPO3 CMS.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * (c) 2026 Jetani Dhruvi <dhruvi.remotedevs@gmail.com>, RemoteDevs Infotech
+ */
+
 class SessionValidatorMiddleware implements MiddlewareInterface
 {
+    /**
+     * track backend user activity for security monitoring.
+     *
+     * @param ServerRequestInterface $request
+     * @param RequestHandlerInterface $handler
+     * @return ResponseInterface
+     */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $backendUser = $GLOBALS['BE_USER'] ?? null;
-
-        // 1. Clean up "Active" status for sessions that have timed out (Last activity > 15 minutes ago)
         $this->cleanupInactiveSessions();
 
         if ($backendUser instanceof \TYPO3\CMS\Core\Authentication\BackendUserAuthentication && isset($backendUser->user['uid'])) {
@@ -51,11 +65,11 @@ class SessionValidatorMiddleware implements MiddlewareInterface
     }
 
     /**
-     * Set is_online to 0 if the last_activity was more than 1 minutes ago
+     * Ensures that only actively used sessions are marked as online.
      */
     private function cleanupInactiveSessions(): void
     {
-        $timeout = time() - 60; // 1 Minutes
+        $timeout = time() - 60; 
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_rdactivitylog_domain_model_sessions');
         $queryBuilder
             ->update('tx_rdactivitylog_domain_model_sessions')
@@ -67,13 +81,18 @@ class SessionValidatorMiddleware implements MiddlewareInterface
             ->executeStatement();
     }
 
- 
+    /**
+     * Creates or updates a backend user session record.
+     *
+     * @param BackendUserAuthentication $beUser
+     * @param string $sessionId
+     * @param string $fingerprint
+     * @param string $userAgent
+     */
     private function createNewSessionRecord($beUser, string $sessionId, string $fingerprint, string $userAgent): void
     {
         $qb = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable('tx_rdactivitylog_domain_model_sessions');
-
-        // Check if this user already has a record
         $existing = $qb
             ->select('uid')
             ->from('tx_rdactivitylog_domain_model_sessions')
@@ -84,7 +103,6 @@ class SessionValidatorMiddleware implements MiddlewareInterface
             ->fetchAssociative();
 
         if ($existing) {
-            // UPDATE existing row
             $qb->update('tx_rdactivitylog_domain_model_sessions')
                 ->set('session_id', $sessionId)
                 ->set('session_fingerprint', $fingerprint)
@@ -98,7 +116,6 @@ class SessionValidatorMiddleware implements MiddlewareInterface
                 )
                 ->executeStatement();
         } else {
-            //  INSERT new only if not exists
             $qb->insert('tx_rdactivitylog_domain_model_sessions')
                 ->values([
                     'pid' => 0,
@@ -116,16 +133,26 @@ class SessionValidatorMiddleware implements MiddlewareInterface
         }
     }
 
+    /**
+     * Updates the activity timestamp for a valid session.
+     *
+     * @param int $uid
+     */
     private function updateActivity(int $uid): void
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_rdactivitylog_domain_model_sessions');
         $queryBuilder->update('tx_rdactivitylog_domain_model_sessions')
             ->set('last_activity_time', time())
-            ->set('is_online', 1) // Ensure it stays active while browsing
+            ->set('is_online', 1) 
             ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid)))
             ->executeStatement();
     }
 
+    /**
+     * Marks a backend session as compromised and forces it offline.
+     *
+     * @param int $uid
+     */
     private function markAsCompromised(int $uid): void
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_rdactivitylog_domain_model_sessions');

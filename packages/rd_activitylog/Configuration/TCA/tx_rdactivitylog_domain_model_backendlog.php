@@ -1,21 +1,31 @@
 <?php
+
+/**
+ * This file is part of the "RD ActivityLog" Extension for TYPO3 CMS.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * (c) 2026 Jetani Dhruvi <dhruvi.remotedevs@gmail.com>, RemoteDevs Infotech
+ */
+
 return [
     'ctrl' => [
-        'title' => 'Activity Log / Page Views',
+        'title' => 'LLL:EXT:rd_activitylog/Resources/Private/Language/locallang_db.xlf:tx_rdactivitylog_domain_model_log',
         'label' => 'page_uid',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'hideTable' => false,
-        'searchFields' => 'user_os, action_type, details',
+        'searchFields' => 'user_info, action_type, details',
         'iconfile' => 'EXT:rd_activitylog/Resources/Public/Icons/tx_rdactivitylog_domain_model_log.gif',
-        'rootLevel' => 1, // Allows logs to be seen globally
+        'rootLevel' => 1, 
     ],
     'types' => [
-        '1' => ['showitem' => 'page_uid, action_type, be_user, user_os, details, tstamp, session_id'],
+        '1' => ['showitem' => 'page_uid, action_type, be_user, user_info, details, tstamp, session_id'],
     ],
     'columns' => [
         'page_uid' => [
-            'label' => 'Target Page ID',
+            'label' => 'LLL:EXT:rd_activitylog/Resources/Private/Language/locallang_db.xlf:tx_rdactivitylog_domain_model_log.page_uid',
             'config' => [
                 'type' => 'number',
                 'size' => 4,
@@ -24,7 +34,7 @@ return [
             ]
         ],
         'be_user' => [
-            'label' => 'Backend User ID',
+            'label' => 'LLL:EXT:rd_activitylog/Resources/Private/Language/locallang_db.xlf:tx_rdactivitylog_domain_model_log.be_user',
             'config' => [
                 'type' => 'number',
                 'size' => 4,
@@ -33,7 +43,7 @@ return [
             ]
         ],
         'action_type' => [
-            'label' => 'Action (view/CREATED/UPDATED)',
+            'label' => 'LLL:EXT:rd_activitylog/Resources/Private/Language/locallang_db.xlf:tx_rdactivitylog_domain_model_log.action_type',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -41,8 +51,8 @@ return [
                 'readOnly' => true,
             ],
         ],
-        'user_os' => [
-            'label' => 'User Info / OS',
+        'user_info' => [
+            'label' => 'LLL:EXT:rd_activitylog/Resources/Private/Language/locallang_db.xlf:tx_rdactivitylog_domain_model_log.user_info',
             'config' => [
                 'type' => 'input',
                 'size' => 50,
@@ -51,7 +61,7 @@ return [
             ],
         ],
         'details' => [
-            'label' => 'Details',
+            'label' => 'LLL:EXT:rd_activitylog/Resources/Private/Language/locallang_db.xlf:tx_rdactivitylog_domain_model_log.details',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,
@@ -60,7 +70,7 @@ return [
             ],
         ],
         'tstamp' => [
-            'label' => 'Timestamp',
+            'label' => 'LLL:EXT:rd_activitylog/Resources/Private/Language/locallang_db.xlf:tx_rdactivitylog_domain_model_log.tstamp',
             'config' => [
                 'type' => 'datetime',
                 'format' => 'datetime',

@@ -2,10 +2,10 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'RD ActivityLog',
-    'description' => '',
+    'description' => 'A high-performance activity logger and analytics dashboard. Monitors backend activities, tracks visitor stats with charts, audits SEO/Performance (ECO), and monitors session security.',    
     'category' => 'plugin',
-    'author' => '',
-    'author_email' => '',
+    'author' => 'Dhruvi Jetani',
+    'author_email' => 'dhruvi.remotedevs@gmail.com',
     'state' => 'stable',
     'clearCacheOnLoad' => 0,
     'version' => '1.0.0',

@@ -18,11 +18,6 @@
             <f:translate key="{lang}dashboard.title" />
          </h1>
       </div>
-      <f:comment>
-         <h1>
-            <f:translate key="{lang}dashboard.title" />
-         </h1>
-      </f:comment>
       <hr>
       <f:if condition="{pageUid}">
          <f:then>
@@ -67,87 +62,6 @@
                            </f:for>
                         </div>
                      </div>
-                     <f:comment>
-                        <div class="card">
-                           <div class="card-header">
-                              <div class="icon-wrapper">
-                                 <svg class="header-icon header-icon-pencil" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M3 17.25V21h3.75L19.81 7.94l-3.75-3.75L3 17.25z" fill="currentColor"/>
-                                    <path d="M20.71 6.04a1 1 0 000-1.41l-1.34-1.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="currentColor"/>
-                                 </svg>
-                              </div>
-                              <f:translate key="{lang}card.content_elements_title" />
-                              ({contentCount})
-                           </div>
-                           <div class="card-body" style="max-height: 400px; overflow-y: auto;">
-                              <table class="table-preview">
-                                 <f:for each="{contentElements}" as="content">
-                                    <tr>
-                                       <td>
-                                          <strong>
-                                             <f:format.crop maxCharacters="50" append="...">
-                                                {content.header}
-                                             </f:format.crop>
-                                          </strong>
-                                       </td>
-                                       <td><span class="label label-info">{content.CType}</span></td>
-                                       <td><small>Col: {content.colPos}</small></td>
-                                    </tr>
-                                 </f:for>
-                              </table>
-                           </div>
-                        </div>
-                     </f:comment>
-
-                     <!-- get backend user or page title and print -->
-                     <f:comment>
-                        <div class="card">
-                           <div class="card-header">
-                              <svg class="header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                 <path d="M12 12c2.7 0 4.5-2 4.5-4.5S14.7 3 12 3 7.5 5 7.5 7.5 9.3 12 12 12zm0 2.25c-3 0-9 1.5-9 4.5V21h18v-2.25c0-3-6-4.5-9-4.5z"/>
-                              </svg>
-                              Dashboard Overview
-                           </div>
-
-                           <div class="card-body">
-
-                              <div class="info-row">
-                                 <span class="label">Backend User</span>
-                                 <span class="value">
-                                    {backendUser.realName}
-                                    <br>
-                                    <small>@{backendUser.username}</small>
-                                 </span>
-                              </div>
-
-                              <hr>
-
-                              <div class="info-row">
-                                 <span class="label">Selected Page</span>
-                                 <span class="value">
-                                    {pageTitle}
-                                    <br>
-                                    <small>UID: {pageUid}</small>
-                                 </span>
-                              </div>
-
-                              <hr>
-
-                              <div class="info-row">
-                                 <span class="label">Content Elements</span>
-                                 <span class="stat-badge">{contentCount}</span>
-                              </div>
-
-                              <div class="progress-wrap">
-                                 <div class="progress-bar" style="width: {contentCount}0%"></div>
-                              </div>
-
-                           </div>
-                        </div>
-                      </f:comment>
-
-
-
                   </div>
                   <div class="action-footer">
                      <f:link.action id="start-translate-btn" action="index" 
